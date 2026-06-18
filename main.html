@@ -11,6 +11,28 @@
     ul { margin: 0; padding-left: 20px; }
     li { margin: 4px 0; }
     a { color: #1a5fb4; }
+    footer {
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid #ccc;
+      font-size: 13px;
+      color: #555;
+    }
+    footer .disclaimer {
+      background: #f8f8f8;
+      border: 1px solid #ddd;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+    footer .footer-links {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+    footer .footer-links a { color: #555; font-size: 13px; }
+    footer .copyright { color: #888; }
   </style>
 </head>
 <body>
@@ -136,6 +158,25 @@
   <li>Chainage Calculator — coming soon</li>
   <li>RL &amp; Grade Checker — coming soon</li>
 </ul>
+
+
+<footer>
+  <div class="disclaimer">
+    <strong>Disclaimer:</strong> All calculators and information on this site are provided for reference and checking purposes only. Results must be verified by a qualified engineer before use in any design or construction. This site does not constitute professional engineering advice. Always refer to current Australian Standards, QLD legislation, and relevant authority requirements.
+  </div>
+  <div class="footer-links">
+    <a href="mailto:">Feedback</a>
+    <span style="color:#ccc">|</span>
+    <a href="https://www.tmr.qld.gov.au" target="_blank">TMR</a>
+    <span style="color:#ccc">|</span>
+    <a href="https://www.planning.qld.gov.au" target="_blank">Planning QLD</a>
+    <span style="color:#ccc">|</span>
+    <a href="https://www.standards.org.au" target="_blank">Standards Australia</a>
+  </div>
+  <p class="copyright">&copy; <span id="yr"></span> QLD Engineering Hub. For reference use only.</p>
+</footer>
+
+<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
 
 </body>
 </html>
