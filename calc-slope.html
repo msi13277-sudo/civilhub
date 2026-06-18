@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Slope Converter — QLD Engineering Hub</title>
+  <style>
+    body { font-family: sans-serif; max-width: 600px; margin: 40px auto; padding: 0 20px; }
+    a { color: #1a5fb4; }
+    h1 { margin-bottom: 4px; }
+    p.sub { color: #666; margin-bottom: 24px; }
+    table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
+    td, th { border: 1px solid #ccc; padding: 8px 12px; }
+    th { background: #f0f0f0; text-align: left; }
+    input[type=number] { width: 160px; padding: 4px 8px; font-size: 15px; }
+    .note { background: #f8f8f8; border: 1px solid #ddd; padding: 12px; font-size: 13px; margin-top: 24px; }
+  </style>
+</head>
+<body>
+
+<p><a href="index.html">← Back to Hub</a></p>
+
+<h1>Slope Converter</h1>
+<p class="sub">Enter any one value — all others update instantly.</p>
+
+<table>
+  <tr><th>Format</th><th>Input / Result</th></tr>
+  <tr>
+    <td>Percentage (%)</td>
+    <td><input type="number" id="pct" placeholder="e.g. 2" step="any" /> %</td>
+  </tr>
+  <tr>
+    <td>Ratio (1 in X)</td>
+    <td>1 in <input type="number" id="ratio" placeholder="e.g. 50" step="any" /></td>
+  </tr>
+  <tr>
+    <td>Degrees (°)</td>
+    <td><input type="number" id="deg" placeholder="e.g. 1.15" step="any" /> °</td>
+  </tr>
+  <tr>
+    <td>Rise / Run</td>
+    <td>
+      Rise <input type="number" id="rise" placeholder="1" step="any" style="width:80px" />
+      / Run <input type="number" id="run" placeholder="50" step="any" style="width:80px" />
+    </td>
+  </tr>
+  <tr>
+    <td>Radians</td>
+    <td id="rad-out">—</td>
+  </tr>
+</table>
+
+<div class="note">
+  <strong>Convention:</strong> In QLD civil engineering, slopes are typically written as <strong>1 in X</strong> (e.g. 1 in 50 = 2%). Roads and drainage use %. Degrees are common in geotechnical work.
+</div>
+
+<script>
+  const pctI   = document.getElementById('pct');
+  const ratioI = document.getElementById('ratio');
+  const degI   = document.getElementById('deg');
+  const riseI  = document.getElementById('rise');
+  const runI   = document.getElementById('run');
+  const radOut = document.getElementById('rad-out');
+
+  let src = null;
+
+  function fmt(n, dp) {
+    if (!isFinite(n)) return '';
+    return parseFloat(n.toFixed(dp)).toString();
+  }
+
+  function update(pct) {
+    if (pct === null || !isFinite(pct) || pct < 0) { radOut.textContent = '—'; return; }
+    const ratio = pct === 0 ? Infinity : 100 / pct;
+    const deg   = Math.atan(pct / 100) * 180 / Math.PI;
+    const rad   = Math.atan(pct / 100);
+
+    if (src !== 'pct')   pctI.value   = fmt(pct, 4);
+    if (src !== 'ratio') ratioI.value = pct === 0 ? '' : fmt(ratio, 3);
+    if (src !== 'deg')   degI.value   = fmt(deg, 4);
+    if (src !== 'rise' && src !== 'run') { riseI.value = '1'; runI.value = pct === 0 ? '' : fmt(ratio, 3); }
+    radOut.textContent = fmt(rad, 6) + ' rad';
+  }
+
+  pctI.addEventListener('input', () => {
+    src = 'pct';
+    update(parseFloat(pctI.value));
+  });
+  ratioI.addEventListener('input', () => {
+    src = 'ratio';
+    const v = parseFloat(ratioI.value);
+    update(isNaN(v) || v === 0 ? null : 100 / v);
+  });
+  degI.addEventListener('input', () => {
+    src = 'deg';
+    const v = parseFloat(degI.value);
+    update(isNaN(v) ? null : Math.tan(v * Math.PI / 180) * 100);
+  });
+  function fromRiseRun() {
+    src = 'riserun';
+    const rise = parseFloat(riseI.value);
+    const run  = parseFloat(runI.value);
+    if (!isNaN(rise) && !isNaN(run) && run !== 0) update(rise / run * 100);
+  }
+  riseI.addEventListener('input', fromRiseRun);
+  runI.addEventListener('input', fromRiseRun);
+</script>
+</body>
+</html>

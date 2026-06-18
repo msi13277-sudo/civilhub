@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scale Converter — QLD Engineering Hub</title>
+  <style>
+    body { font-family: sans-serif; max-width: 600px; margin: 40px auto; padding: 0 20px; }
+    a { color: #1a5fb4; }
+    h1 { margin-bottom: 4px; }
+    p.sub { color: #666; margin-bottom: 24px; }
+    h2 { margin-top: 32px; margin-bottom: 12px; }
+    table { border-collapse: collapse; width: 100%; margin-bottom: 12px; }
+    td, th { border: 1px solid #ccc; padding: 8px 12px; }
+    th { background: #f0f0f0; text-align: left; }
+    input[type=number] { width: 130px; padding: 4px 8px; font-size: 15px; }
+    select { padding: 4px 8px; font-size: 14px; }
+    .result { font-weight: bold; color: #1a5fb4; }
+    .presets { margin-bottom: 16px; }
+    .presets button {
+      margin: 2px; padding: 4px 10px; cursor: pointer;
+      background: #f0f0f0; border: 1px solid #bbb; border-radius: 3px; font-size: 13px;
+    }
+    .presets button.active { background: #1a5fb4; color: #fff; border-color: #1a5fb4; }
+    .note { background: #f8f8f8; border: 1px solid #ddd; padding: 12px; font-size: 13px; margin-top: 24px; }
+  </style>
+</head>
+<body>
+
+<p><a href="index.html">← Back to Hub</a></p>
+
+<h1>Scale Converter</h1>
+<p class="sub">Convert between drawing measurements and real-world distances.</p>
+
+<p><strong>Scale:</strong> 1 : <input type="number" id="scale-input" value="250" min="1" step="1" /></p>
+
+<div class="presets">
+  <strong>Presets:</strong>
+  <button data-s="20">1:20</button>
+  <button data-s="25">1:25</button>
+  <button data-s="50">1:50</button>
+  <button data-s="100">1:100</button>
+  <button data-s="250" class="active">1:250</button>
+  <button data-s="500">1:500</button>
+  <button data-s="1000">1:1000</button>
+</div>
+
+<h2>Drawing → Real World</h2>
+<table>
+  <tr>
+    <th>Drawing measurement</th>
+    <td>
+      <input type="number" id="draw-val" placeholder="e.g. 50" step="any" />
+      <select id="draw-unit">
+        <option value="mm">mm</option>
+        <option value="cm">cm</option>
+        <option value="m">m</option>
+      </select>
+    </td>
+  </tr>
+  <tr><th>→ Real world (mm)</th><td class="result" id="rw-mm">—</td></tr>
+  <tr><th>→ Real world (m)</th><td class="result" id="rw-m">—</td></tr>
+  <tr><th>→ Real world (km)</th><td class="result" id="rw-km">—</td></tr>
+</table>
+
+<h2>Real World → Drawing</h2>
+<table>
+  <tr>
+    <th>Real world distance</th>
+    <td>
+      <input type="number" id="real-val" placeholder="e.g. 10" step="any" />
+      <select id="real-unit">
+        <option value="mm">mm</option>
+        <option value="cm">cm</option>
+        <option value="m" selected>m</option>
+        <option value="km">km</option>
+      </select>
+    </td>
+  </tr>
+  <tr><th>→ On drawing (mm)</th><td class="result" id="dr-mm">—</td></tr>
+  <tr><th>→ On drawing (cm)</th><td class="result" id="dr-cm">—</td></tr>
+</table>
+
+<div class="note">
+  <strong>Common QLD scales:</strong> 1:50 / 1:100 details · 1:200 site plans · 1:500 subdivision · 1:1000 precinct · 1:25000 cadastral. Always verify against the title block — printing to non-standard paper sizes will distort the scale.
+</div>
+
+<script>
+  let scale = 250;
+
+  function toMM(v, u) {
+    if (u === 'mm') return v;
+    if (u === 'cm') return v * 10;
+    if (u === 'm')  return v * 1000;
+    if (u === 'km') return v * 1e6;
+  }
+
+  function fmt(n, dp) {
+    if (!isFinite(n) || isNaN(n)) return '—';
+    return parseFloat(n.toFixed(dp)).toString();
+  }
+
+  function calcD2R() {
+    const v = parseFloat(document.getElementById('draw-val').value);
+    const u = document.getElementById('draw-unit').value;
+    if (isNaN(v)) { ['rw-mm','rw-m','rw-km'].forEach(id => document.getElementById(id).textContent = '—'); return; }
+    const realMM = toMM(v, u) * scale;
+    document.getElementById('rw-mm').textContent = fmt(realMM, 1) + ' mm';
+    document.getElementById('rw-m').textContent  = fmt(realMM / 1000, 4) + ' m';
+    document.getElementById('rw-km').textContent = fmt(realMM / 1e6, 6) + ' km';
+  }
+
+  function calcR2D() {
+    const v = parseFloat(document.getElementById('real-val').value);
+    const u = document.getElementById('real-unit').value;
+    if (isNaN(v)) { ['dr-mm','dr-cm'].forEach(id => document.getElementById(id).textContent = '—'); return; }
+    const drawMM = toMM(v, u) / scale;
+    document.getElementById('dr-mm').textContent = fmt(drawMM, 3) + ' mm';
+    document.getElementById('dr-cm').textContent = fmt(drawMM / 10, 4) + ' cm';
+  }
+
+  function recalc() { calcD2R(); calcR2D(); }
+
+  document.getElementById('scale-input').addEventListener('input', () => {
+    const v = parseFloat(document.getElementById('scale-input').value);
+    if (v > 0) { scale = v; document.querySelectorAll('.presets button').forEach(b => b.classList.remove('active')); recalc(); }
+  });
+
+  document.querySelectorAll('.presets button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      scale = parseInt(btn.dataset.s);
+      document.getElementById('scale-input').value = scale;
+      document.querySelectorAll('.presets button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      recalc();
+    });
+  });
+
+  document.getElementById('draw-val').addEventListener('input', calcD2R);
+  document.getElementById('draw-unit').addEventListener('change', calcD2R);
+  document.getElementById('real-val').addEventListener('input', calcR2D);
+  document.getElementById('real-unit').addEventListener('change', calcR2D);
+</script>
+</body>
+</html>

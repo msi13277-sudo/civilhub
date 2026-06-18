@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Slope from Dimensions — QLD Engineering Hub</title>
+  <style>
+    body { font-family: sans-serif; max-width: 600px; margin: 40px auto; padding: 0 20px; }
+    a { color: #1a5fb4; }
+    h1 { margin-bottom: 4px; }
+    p.sub { color: #666; margin-bottom: 24px; }
+    h2 { margin-top: 32px; margin-bottom: 10px; }
+    table { border-collapse: collapse; width: 100%; margin-bottom: 8px; }
+    td, th { border: 1px solid #ccc; padding: 8px 12px; }
+    th { background: #f0f0f0; text-align: left; width: 40%; }
+    input[type=number] { width: 130px; padding: 4px 8px; font-size: 15px; }
+    select { padding: 4px 8px; font-size: 14px; }
+    .result { font-weight: bold; color: #1a5fb4; }
+    hr { border: none; border-top: 1px solid #ddd; margin: 32px 0; }
+    .note { background: #f8f8f8; border: 1px solid #ddd; padding: 12px; font-size: 13px; margin-top: 24px; }
+  </style>
+</head>
+<body>
+
+<p><a href="index.html">← Back to Hub</a></p>
+
+<h1>Slope from Dimensions</h1>
+<p class="sub">Enter length and height to calculate slope. Use direct values or two RLs / chainages.</p>
+
+<h2>Horizontal Length</h2>
+<table>
+  <tr>
+    <th>Chainage start / end</th>
+    <td>
+      <input type="number" id="ch1" placeholder="start" step="any" style="width:90px" /> m
+      &nbsp;/&nbsp;
+      <input type="number" id="ch2" placeholder="end" step="any" style="width:90px" /> m
+    </td>
+  </tr>
+  <tr>
+    <th>Length</th>
+    <td>
+      <input type="number" id="len" placeholder="e.g. 50" step="any" />
+      <select id="len-unit">
+        <option value="m" selected>m</option>
+        <option value="mm">mm</option>
+      </select>
+    </td>
+  </tr>
+</table>
+
+<h2>Vertical Height (Rise)</h2>
+<table>
+  <tr>
+    <th>Upper RL / Lower RL</th>
+    <td>
+      <input type="number" id="rl-hi" placeholder="upper" step="any" style="width:90px" /> m
+      &nbsp;/&nbsp;
+      <input type="number" id="rl-lo" placeholder="lower" step="any" style="width:90px" /> m
+    </td>
+  </tr>
+  <tr>
+    <th>Height difference</th>
+    <td>
+      <input type="number" id="ht" placeholder="e.g. 1.0" step="any" />
+      <select id="ht-unit">
+        <option value="m" selected>m</option>
+        <option value="mm">mm</option>
+      </select>
+    </td>
+  </tr>
+</table>
+
+<hr />
+
+<h2>Results</h2>
+<table>
+  <tr><th>Percentage</th>     <td class="result" id="r-pct">—</td></tr>
+  <tr><th>Ratio (1 in X)</th> <td class="result" id="r-ratio">—</td></tr>
+  <tr><th>Degrees</th>        <td class="result" id="r-deg">—</td></tr>
+  <tr><th>Radians</th>        <td class="result" id="r-rad">—</td></tr>
+</table>
+
+<div class="note">
+  Slope = rise ÷ run × 100. Chainage difference is used as horizontal run. RL order doesn't matter — absolute difference is used.
+</div>
+
+<script>
+  function fmt(n, dp) {
+    if (!isFinite(n) || isNaN(n)) return '—';
+    return parseFloat(n.toFixed(dp)).toString();
+  }
+
+  // chainage → auto-fill length
+  function onChainage() {
+    const c1 = parseFloat(document.getElementById('ch1').value);
+    const c2 = parseFloat(document.getElementById('ch2').value);
+    if (!isNaN(c1) && !isNaN(c2)) {
+      const d = Math.abs(c2 - c1);
+      document.getElementById('len').value = fmt(d, 4);
+      document.getElementById('len-unit').value = 'm';
+    }
+    recalc();
+  }
+
+  // RL → auto-fill height
+  function onRL() {
+    const hi = parseFloat(document.getElementById('rl-hi').value);
+    const lo = parseFloat(document.getElementById('rl-lo').value);
+    if (!isNaN(hi) && !isNaN(lo)) {
+      const d = Math.abs(hi - lo);
+      document.getElementById('ht').value = fmt(d, 4);
+      document.getElementById('ht-unit').value = 'm';
+    }
+    recalc();
+  }
+
+  function getLenM() {
+    const v = parseFloat(document.getElementById('len').value);
+    const u = document.getElementById('len-unit').value;
+    if (!isNaN(v) && v > 0) return u === 'mm' ? v / 1000 : v;
+    return null;
+  }
+
+  function getHtM() {
+    const v = parseFloat(document.getElementById('ht').value);
+    const u = document.getElementById('ht-unit').value;
+    if (!isNaN(v) && v > 0) return u === 'mm' ? v / 1000 : v;
+    return null;
+  }
+
+  function recalc() {
+    const lenM = getLenM();
+    const htM  = getHtM();
+
+    if (lenM === null || htM === null) {
+      ['r-pct','r-ratio','r-deg','r-rad'].forEach(id => document.getElementById(id).textContent = '—');
+      return;
+    }
+
+    const pct   = htM / lenM * 100;
+    const ratio = lenM / htM;
+    const deg   = Math.atan(htM / lenM) * 180 / Math.PI;
+    const rad   = Math.atan(htM / lenM);
+
+    document.getElementById('r-pct').textContent   = fmt(pct, 4) + ' %';
+    document.getElementById('r-ratio').textContent = '1 in ' + fmt(ratio, 2);
+    document.getElementById('r-deg').textContent   = fmt(deg, 4) + ' °';
+    document.getElementById('r-rad').textContent   = fmt(rad, 6) + ' rad';
+  }
+
+  document.getElementById('ch1').addEventListener('input', onChainage);
+  document.getElementById('ch2').addEventListener('input', onChainage);
+  document.getElementById('rl-hi').addEventListener('input', onRL);
+  document.getElementById('rl-lo').addEventListener('input', onRL);
+  document.getElementById('len').addEventListener('input', recalc);
+  document.getElementById('len-unit').addEventListener('change', recalc);
+  document.getElementById('ht').addEventListener('input', recalc);
+  document.getElementById('ht-unit').addEventListener('change', recalc);
+</script>
+</body>
+</html>
