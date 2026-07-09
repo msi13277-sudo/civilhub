@@ -4,9 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>QLD Civil Engineering Hub</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='7'%20fill='%231a5fb4'/%3E%3Cpath%20d='M7%209.5h18'%20stroke='%23fff'%20stroke-width='2.4'%20stroke-linecap='round'/%3E%3Cpath%20d='M16%2010%2023.5%2024h-15z'%20fill='none'%20stroke='%23fff'%20stroke-width='2.4'%20stroke-linejoin='round'/%3E%3Ccircle%20cx='16'%20cy='19'%20r='2'%20fill='%23fff'/%3E%3C/svg%3E" />
   <style>
     body { font-family: sans-serif; max-width: 900px; margin: 40px auto; padding: 0 20px; }
-    h1 { margin-bottom: 8px; }
+    .site-header { display: flex; align-items: center; gap: 14px; padding-bottom: 16px; border-bottom: 2px solid #1a5fb4; }
+    .site-header svg { display: block; flex-shrink: 0; }
+    .site-header h1 { margin: 0; font-size: 26px; }
     h2 { margin-top: 40px; margin-bottom: 8px; border-bottom: 1px solid #ccc; padding-bottom: 4px; }
     ul { margin: 0; padding-left: 20px; }
     li { margin: 4px 0; }
@@ -37,7 +40,15 @@
 </head>
 <body>
 
-<h1>QLD Civil Engineering Hub</h1>
+<header class="site-header">
+  <svg width="40" height="40" viewBox="0 0 32 32" role="img" aria-label="QLD Civil Engineering Hub logo">
+    <rect width="32" height="32" rx="7" fill="#1a5fb4"/>
+    <path d="M7 9.5h18" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M16 10 23.5 24h-15z" fill="none" stroke="#fff" stroke-width="2.4" stroke-linejoin="round"/>
+    <circle cx="16" cy="19" r="2" fill="#fff"/>
+  </svg>
+  <h1>QLD Civil Engineering Hub</h1>
+</header>
 
 <!-- ── 01 COUNCILS & UTILITIES ── -->
 <h2>01 · Councils &amp; Utilities</h2>
@@ -147,12 +158,49 @@
   <li><a href="https://www.tmr.qld.gov.au/business-industry/Technical-standards-publications/standard-drawings" target="_blank">TMR Standard Drawings (MRTS)</a></li>
 </ul>
 
-<!-- ── 04 CALCULATORS ── -->
-<h2>04 · Calculators</h2>
+<!-- ── 04 FORMS & APPLICATIONS ── -->
+<h2>04 · Forms &amp; Applications</h2>
+<p style="color:#666; font-size:14px; margin:6px 0 8px;">Links go to official pages — always download the latest version from the source.</p>
+
+<h3>State Planning</h3>
+<ul>
+  <li><a href="https://www.planning.qld.gov.au/planning-framework/development-assessment/development-assessment-process/forms-and-templates" target="_blank">DA Forms — DA Form 1 &amp; 2 (Planning QLD)</a> — development application forms &amp; templates, latest DA Form 1 / DA Form 2</li>
+</ul>
+
+<h3>Water Utilities</h3>
+<ul>
+  <li><a href="https://www.urbanutilities.com.au/development/help-and-advice/development-forms" target="_blank">Urban Utilities — Development Forms</a> — design package submission (Major Works), as-constructed certification &amp; all development forms</li>
+  <li><a href="https://www.urbanutilities.com.au/development/help-and-advice/standards-and-guidelines/as-constructed-package-submissions" target="_blank">Urban Utilities — As-Constructed Package Submissions</a> — as-constructed package requirements &amp; forms</li>
+  <li><a href="https://www.unitywater.com/building-and-developing/reference-library" target="_blank">Unitywater — Reference Library</a> — connection applications, approval amendments, A&amp;C submission forms, CAD/ADAC standards</li>
+</ul>
+
+<h3>Councils</h3>
+<ul>
+  <li><a href="https://www.brisbane.qld.gov.au/building-and-planning/additional-approvals/operational-works-application" target="_blank">Brisbane — Operational Works Application</a> — OPW requirements, checklists &amp; online application</li>
+  <li><a href="https://www.brisbane.qld.gov.au/planning-and-building/applying-and-post-approval/lodging-an-application" target="_blank">Brisbane — Prepare &amp; Lodge a DA</a> — DA preparation &amp; online lodgement (incl. DA Form 1 &amp; 2)</li>
+  <li><a href="https://www.goldcoast.qld.gov.au/Planning-building/Development-applications/DA-types/Operational-works" target="_blank">Gold Coast — Operational Works</a> — OPW application forms, engineering drawings approval, street lighting application</li>
+  <li><a href="https://www.logan.qld.gov.au/planning-and-building/planning-and-development/forms-factsheets-and-kits" target="_blank">Logan — Forms, Factsheets &amp; Kits</a> — planning &amp; development forms and kits, incl. as-constructed submission kit</li>
+  <li><a href="https://www.moretonbay.qld.gov.au/Services/Building-Development/DA-Lodgement" target="_blank">Moreton Bay — DA Lodgement</a> — DA &amp; OPW electronic lodgement, plan endorsement forms</li>
+</ul>
+
+<h3>State Roads (TMR)</h3>
+<ul>
+  <li><a href="https://www.tmr.qld.gov.au/community-and-environment/planning-and-development/other-matters-requiring-approval/road-corridor-permit" target="_blank">TMR — Road Corridor Permit</a> — ancillary works &amp; encroachments on state-controlled roads, application requirements</li>
+  <li><a href="https://rcp.tmr.qld.gov.au/" target="_blank">TMR — Road Corridor Permit Portal</a> — online RCP application portal</li>
+</ul>
+
+<h3>Titles / Survey Plans</h3>
+<ul>
+  <li><a href="https://www.titlesqld.com.au/titles-registry-forms/" target="_blank">Titles Queensland — Forms</a> — Form 21 (Plan of Survey), Form 14 &amp; all land registry forms, latest versions</li>
+</ul>
+
+<!-- ── 05 CALCULATORS ── -->
+<h2>05 · Calculators</h2>
 <ul>
   <li><a href="calc-slope.html">Slope Converter</a> — %, 1 in X ratio, degrees, rise/run</li>
   <li><a href="calc-slope-dims.html">Slope from Dimensions</a> — length + height (or RL / chainage) → slope</li>
   <li><a href="calc-scale.html">Scale Converter</a> — drawing measurement ↔ real world distance</li>
+  <li><a href="calc-height.html">Height / RL from Slope &amp; Length</a> — slope + length → height change, final RL</li>
   <li>Pipe Flow (Manning's) — coming soon</li>
   <li>Cut &amp; Fill Estimator — coming soon</li>
   <li>Chainage Calculator — coming soon</li>
@@ -173,7 +221,7 @@
     <span style="color:#ccc">|</span>
     <a href="https://www.standards.org.au" target="_blank">Standards Australia</a>
   </div>
-  <p class="copyright">&copy; <span id="yr"></span> QLD Engineering Hub. For reference use only.</p>
+  <p class="copyright">&copy; <span id="yr"></span> QLD Civil Engineering Hub. For reference use only.</p>
 </footer>
 
 <script>document.getElementById('yr').textContent = new Date().getFullYear();</script>

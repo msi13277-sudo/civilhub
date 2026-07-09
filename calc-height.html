@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Height / RL from Slope &amp; Length — QLD Civil Engineering Hub</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='7'%20fill='%231a5fb4'/%3E%3Cpath%20d='M7%209.5h18'%20stroke='%23fff'%20stroke-width='2.4'%20stroke-linecap='round'/%3E%3Cpath%20d='M16%2010%2023.5%2024h-15z'%20fill='none'%20stroke='%23fff'%20stroke-width='2.4'%20stroke-linejoin='round'/%3E%3Ccircle%20cx='16'%20cy='19'%20r='2'%20fill='%23fff'/%3E%3C/svg%3E" />
+  <style>
+    body { font-family: sans-serif; max-width: 600px; margin: 40px auto; padding: 0 20px; }
+    a { color: #1a5fb4; }
+    .brand { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-size: 14px; font-weight: 600; }
+    .brand svg { display: block; }
+    .brand:hover .brand-name { text-decoration: underline; }
+    h1 { margin-bottom: 4px; }
+    p.sub { color: #666; margin-bottom: 24px; }
+    h2 { margin-top: 32px; margin-bottom: 10px; }
+    table { border-collapse: collapse; width: 100%; margin-bottom: 8px; }
+    td, th { border: 1px solid #ccc; padding: 8px 12px; }
+    th { background: #f0f0f0; text-align: left; width: 40%; }
+    input[type=number] { width: 130px; padding: 4px 8px; font-size: 15px; }
+    select { padding: 4px 8px; font-size: 14px; }
+    .result { font-weight: bold; color: #1a5fb4; }
+    .hint { color: #888; font-size: 12px; }
+    hr { border: none; border-top: 1px solid #ddd; margin: 32px 0; }
+    .note { background: #f8f8f8; border: 1px solid #ddd; padding: 12px; font-size: 13px; margin-top: 24px; }
+  </style>
+</head>
+<body>
+
+<p><a class="brand" href="index.html" title="Back to Hub"><svg width="20" height="20" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#1a5fb4"/><path d="M7 9.5h18" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><path d="M16 10 23.5 24h-15z" fill="none" stroke="#fff" stroke-width="2.4" stroke-linejoin="round"/><circle cx="16" cy="19" r="2" fill="#fff"/></svg><span class="brand-name">← QLD Civil Engineering Hub</span></a></p>
+
+<h1>Height / RL from Slope &amp; Length</h1>
+<p class="sub">Enter slope and horizontal length to get the height change and final RL.</p>
+
+<h2>Inputs</h2>
+<table>
+  <tr>
+    <th>Starting height / RL</th>
+    <td>
+      <input type="number" id="start" placeholder="optional, e.g. 100.000" step="any" /> m
+      <div class="hint">Leave blank to treat as 0 (rise only)</div>
+    </td>
+  </tr>
+  <tr>
+    <th>Slope</th>
+    <td>
+      <select id="slope-mode">
+        <option value="pct" selected>Percentage (%)</option>
+        <option value="ratio">Ratio (1 in X)</option>
+      </select>
+      <span id="ratio-prefix" style="display:none">1 in </span>
+      <input type="number" id="slope" placeholder="e.g. 2" step="any" style="width:100px" />
+      <span id="pct-suffix">%</span>
+      <div class="hint">Negative value = downhill (fall)</div>
+    </td>
+  </tr>
+  <tr>
+    <th>Length (horizontal)</th>
+    <td><input type="number" id="len" placeholder="e.g. 50" step="any" /> m</td>
+  </tr>
+</table>
+
+<hr />
+
+<h2>Results</h2>
+<table>
+  <tr><th>Height change</th>       <td class="result" id="r-change">—</td></tr>
+  <tr><th>Final height / RL</th>   <td class="result" id="r-final">—</td></tr>
+</table>
+
+<div class="note">
+  Height change = slope × horizontal length. In <strong>1 in X</strong> mode, slope = 1 ÷ X (e.g. 1 in 20 = 5%); use a negative X for downhill. RLs are shown to 3 decimal places as per survey convention. For reference and checking only — verify with a qualified engineer.
+</div>
+
+<script>
+  const startI    = document.getElementById('start');
+  const modeSel   = document.getElementById('slope-mode');
+  const slopeI    = document.getElementById('slope');
+  const lenI      = document.getElementById('len');
+  const changeOut = document.getElementById('r-change');
+  const finalOut  = document.getElementById('r-final');
+
+  function fmt(n, dp) {
+    if (!isFinite(n) || isNaN(n)) return '—';
+    return n.toFixed(dp);
+  }
+
+  // Returns slope as a decimal gradient (rise/run), or null if invalid.
+  function getGradient() {
+    const v = parseFloat(slopeI.value);
+    if (isNaN(v) || !isFinite(v)) return null;
+    if (modeSel.value === 'pct') return v / 100;
+    if (v === 0) return null;          // 1 in 0 is undefined
+    return 1 / v;                      // 1 in X (negative X = downhill)
+  }
+
+  function computeChange(gradient, length) {
+    return gradient * length;
+  }
+
+  function onModeChange() {
+    const ratio = modeSel.value === 'ratio';
+    document.getElementById('ratio-prefix').style.display = ratio ? '' : 'none';
+    document.getElementById('pct-suffix').style.display   = ratio ? 'none' : '';
+    slopeI.placeholder = ratio ? 'e.g. 50' : 'e.g. 2';
+    recalc();
+  }
+
+  function recalc() {
+    const gradient = getGradient();
+    const length   = parseFloat(lenI.value);
+    let start      = parseFloat(startI.value);
+    if (isNaN(start)) start = 0;       // blank start = 0
+
+    if (gradient === null || isNaN(length) || !isFinite(length)) {
+      changeOut.textContent = '—';
+      finalOut.textContent  = '—';
+      return;
+    }
+
+    const change = computeChange(gradient, length);
+    const final  = start + change;
+    const sign   = change > 0 ? '+' : '';
+    const label  = change > 0 ? ' (rise)' : change < 0 ? ' (fall)' : '';
+
+    changeOut.textContent = sign + fmt(change, 3) + ' m  (' + sign + fmt(change * 1000, 0) + ' mm)' + label;
+    finalOut.textContent  = fmt(final, 3) + ' m';
+  }
+
+  startI.addEventListener('input', recalc);
+  slopeI.addEventListener('input', recalc);
+  lenI.addEventListener('input', recalc);
+  modeSel.addEventListener('change', onModeChange);
+</script>
+</body>
+</html>
