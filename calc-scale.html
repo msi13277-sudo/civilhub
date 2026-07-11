@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Scale Converter — QLD Civil Engineering Hub</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='7'%20fill='%231a5fb4'/%3E%3Cpath%20d='M7%209.5h18'%20stroke='%23fff'%20stroke-width='2.4'%20stroke-linecap='round'/%3E%3Cpath%20d='M16%2010%2023.5%2024h-15z'%20fill='none'%20stroke='%23fff'%20stroke-width='2.4'%20stroke-linejoin='round'/%3E%3Ccircle%20cx='16'%20cy='19'%20r='2'%20fill='%23fff'/%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Cdefs%3E%3CclipPath%20id='c'%3E%3Crect%20width='32'%20height='32'%20rx='7'/%3E%3C/clipPath%3E%3C/defs%3E%3Crect%20width='32'%20height='32'%20rx='7'%20fill='%2317406e'/%3E%3Cg%20clip-path='url(%23c)'%3E%3Cpolygon%20points='0,10%2032,8%2032,12%200,14'%20fill='%238ec1f2'/%3E%3Cpolygon%20points='0,14%2032,12%2032,17%200,19'%20fill='%233d80cc'/%3E%3Cpolygon%20points='0,19%2032,17%2032,23%200,25'%20fill='%231a5fb4'/%3E%3C/g%3E%3Ccircle%20cx='16'%20cy='26.5'%20r='3.2'%20fill='none'%20stroke='%238ec1f2'%20stroke-width='2'/%3E%3C/svg%3E" />
   <style>
     body { font-family: sans-serif; max-width: 600px; margin: 40px auto; padding: 0 20px; }
     a { color: #1a5fb4; }
@@ -27,11 +27,19 @@
     }
     .presets button.active { background: #1a5fb4; color: #fff; border-color: #1a5fb4; }
     .note { background: #f8f8f8; border: 1px solid #ddd; padding: 12px; font-size: 13px; margin-top: 24px; }
+    .share-row { margin: 4px 0 0; }
+    .share-row button { padding: 5px 14px; font-size: 13px; cursor: pointer; background: #f0f0f0; border: 1px solid #bbb; border-radius: 3px; color: #333; }
+    .share-row button:hover { background: #e6e6e6; }
+    .share-msg { color: #2e7d32; font-size: 12px; margin-left: 8px; }
+    #share-url { width: 100%; margin-top: 6px; padding: 4px 8px; font-size: 12px; box-sizing: border-box; }
+    footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid #ccc; font-size: 13px; }
+    footer .footer-links { display: flex; gap: 16px; flex-wrap: wrap; }
+    footer .footer-links a { color: #555; }
   </style>
 </head>
 <body>
 
-<p><a class="brand" href="index.html" title="Back to Hub"><svg width="20" height="20" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#1a5fb4"/><path d="M7 9.5h18" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><path d="M16 10 23.5 24h-15z" fill="none" stroke="#fff" stroke-width="2.4" stroke-linejoin="round"/><circle cx="16" cy="19" r="2" fill="#fff"/></svg><span class="brand-name">← QLD Civil Engineering Hub</span></a></p>
+<p><a class="brand" href="index.html" title="Back to Hub"><svg width="20" height="20" viewBox="0 0 32 32" aria-hidden="true"><defs><clipPath id="hublogo-clip"><rect width="32" height="32" rx="7"/></clipPath></defs><rect width="32" height="32" rx="7" fill="#17406e"/><g clip-path="url(#hublogo-clip)"><polygon points="0,10 32,8 32,12 0,14" fill="#8ec1f2"/><polygon points="0,14 32,12 32,17 0,19" fill="#3d80cc"/><polygon points="0,19 32,17 32,23 0,25" fill="#1a5fb4"/></g><circle cx="16" cy="26.5" r="3.2" fill="none" stroke="#8ec1f2" stroke-width="2"/></svg><span class="brand-name">← QLD Civil Engineering Hub</span></a></p>
 
 <h1>Scale Converter</h1>
 <p class="sub">Convert between drawing measurements and real-world distances.</p>
@@ -84,6 +92,12 @@
   <tr><th>→ On drawing (mm)</th><td class="result" id="dr-mm">—</td></tr>
   <tr><th>→ On drawing (cm)</th><td class="result" id="dr-cm">—</td></tr>
 </table>
+
+<div class="share-row">
+  <button type="button" id="share-btn" title="Copy a link that restores these inputs">Copy link</button>
+  <span class="share-msg" id="share-msg"></span>
+  <input type="text" id="share-url" readonly style="display:none" aria-label="Shareable link" />
+</div>
 
 <div class="note">
   <strong>Common QLD scales:</strong> 1:50 / 1:100 details · 1:200 site plans · 1:500 subdivision · 1:1000 precinct · 1:25000 cadastral. Always verify against the title block — printing to non-standard paper sizes will distort the scale.
@@ -144,6 +158,90 @@
   document.getElementById('draw-unit').addEventListener('change', calcD2R);
   document.getElementById('real-val').addEventListener('input', calcR2D);
   document.getElementById('real-unit').addEventListener('change', calcR2D);
+
+  // ── Share link (URL query parameters) ─────────────────────────────
+  const shareBtn = document.getElementById('share-btn');
+  const shareMsg = document.getElementById('share-msg');
+  const shareBox = document.getElementById('share-url');
+  let shareMsgTimer = null;
+
+  function pageURL() { return location.href.split('#')[0].split('?')[0]; }
+
+  function buildShareURL() {
+    const dv = document.getElementById('draw-val').value;
+    const rv = document.getElementById('real-val').value;
+    if (!(scale > 0) || (dv === '' && rv === '')) return null;
+    const p = new URLSearchParams();
+    p.set('s', String(scale));
+    if (dv !== '') {
+      p.set('dv', dv);
+      p.set('du', document.getElementById('draw-unit').value);
+    }
+    if (rv !== '') {
+      p.set('rv', rv);
+      p.set('ru', document.getElementById('real-unit').value);
+    }
+    return pageURL() + '?' + p.toString();
+  }
+
+  function showShareMsg(text) {
+    shareMsg.textContent = text;
+    clearTimeout(shareMsgTimer);
+    shareMsgTimer = setTimeout(() => { shareMsg.textContent = ''; }, 2500);
+  }
+
+  function shareFallback(url) {
+    shareBox.style.display = '';
+    shareBox.value = url;
+    shareBox.focus();
+    shareBox.select();
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) {}
+    showShareMsg(ok ? 'Copied!' : 'Press Ctrl+C to copy');
+  }
+
+  shareBtn.addEventListener('click', () => {
+    const url = buildShareURL();
+    if (!url) { showShareMsg('Enter a measurement first'); return; }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url)
+        .then(() => { shareBox.style.display = 'none'; showShareMsg('Copied!'); })
+        .catch(() => shareFallback(url));
+    } else {
+      shareFallback(url);
+    }
+  });
+
+  // Restore inputs from URL parameters and recalculate
+  (function restoreFromURL() {
+    const p = new URLSearchParams(location.search);
+    if (![ 's','dv','du','rv','ru' ].some(k => p.has(k))) return;
+    if (p.has('s')) {
+      const s = parseFloat(p.get('s'));
+      if (s > 0) {
+        scale = s;
+        document.getElementById('scale-input').value = s;
+        document.querySelectorAll('.presets button').forEach(b =>
+          b.classList.toggle('active', parseInt(b.dataset.s) === s));
+      }
+    }
+    if (p.has('dv')) document.getElementById('draw-val').value = p.get('dv');
+    if (p.has('du')) document.getElementById('draw-unit').value = p.get('du');
+    if (p.has('rv')) document.getElementById('real-val').value = p.get('rv');
+    if (p.has('ru')) document.getElementById('real-unit').value = p.get('ru');
+    recalc();
+  })();
 </script>
+
+<footer>
+  <div class="footer-links">
+    <a href="about.html">About</a>
+    <span style="color:#ccc">|</span>
+    <a href="privacy.html">Privacy</a>
+    <span style="color:#ccc">|</span>
+    <a href="contact.html">Contact</a>
+  </div>
+</footer>
+
 </body>
 </html>

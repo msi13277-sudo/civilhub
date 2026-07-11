@@ -1,0 +1,4 @@
+# Internal company docs — not for the public site repo
+docs/
+.claude/
+CLAUDE.md
