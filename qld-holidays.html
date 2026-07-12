@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QLD Public Holidays — QLD Civil Engineering Hub</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Cdefs%3E%3CclipPath%20id='c'%3E%3Crect%20width='32'%20height='32'%20rx='7'/%3E%3C/clipPath%3E%3C/defs%3E%3Crect%20width='32'%20height='32'%20rx='7'%20fill='%2317406e'/%3E%3Cg%20clip-path='url(%23c)'%3E%3Cpolygon%20points='0,10%2032,8%2032,12%200,14'%20fill='%238ec1f2'/%3E%3Cpolygon%20points='0,14%2032,12%2032,17%200,19'%20fill='%233d80cc'/%3E%3Cpolygon%20points='0,19%2032,17%2032,23%200,25'%20fill='%231a5fb4'/%3E%3C/g%3E%3Ccircle%20cx='16'%20cy='26.5'%20r='3.2'%20fill='none'%20stroke='%238ec1f2'%20stroke-width='2'/%3E%3C/svg%3E" />
+  <style>
+    body { font-family: sans-serif; max-width: 650px; margin: 40px auto; padding: 0 20px; }
+    a { color: #1a5fb4; }
+    .brand { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-size: 14px; font-weight: 600; }
+    .brand svg { display: block; }
+    .brand:hover .brand-name { text-decoration: underline; }
+    h1 { margin-bottom: 4px; }
+    p.sub { color: #666; margin-bottom: 24px; }
+    h2 { margin-top: 32px; margin-bottom: 10px; }
+    table { border-collapse: collapse; width: 100%; margin-bottom: 8px; }
+    td, th { border: 1px solid #ccc; padding: 8px 12px; font-size: 14px; }
+    th { background: #f0f0f0; text-align: left; }
+    th.col-date { width: 22%; }
+    th.col-day  { width: 14%; }
+    tr.next-holiday td { background: #eaf3fc; font-weight: bold; }
+    tr.past td { color: #999; }
+    .hint { color: #888; font-size: 12px; font-weight: normal; }
+    .upcoming { background: #eaf3fc; border: 1px solid #b7d4ef; padding: 12px 16px; font-size: 14px; margin-bottom: 8px; }
+    .upcoming strong { color: #17406e; }
+    .note { background: #f8f8f8; border: 1px solid #ddd; padding: 12px; font-size: 13px; margin-top: 24px; line-height: 1.5; }
+    footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid #ccc; font-size: 13px; }
+    footer .footer-links { display: flex; gap: 16px; flex-wrap: wrap; }
+    footer .footer-links a { color: #555; }
+  </style>
+</head>
+<body>
+
+<p><a class="brand" href="index.html" title="Back to Hub"><svg width="20" height="20" viewBox="0 0 32 32" aria-hidden="true"><defs><clipPath id="hublogo-clip"><rect width="32" height="32" rx="7"/></clipPath></defs><rect width="32" height="32" rx="7" fill="#17406e"/><g clip-path="url(#hublogo-clip)"><polygon points="0,10 32,8 32,12 0,14" fill="#8ec1f2"/><polygon points="0,14 32,12 32,17 0,19" fill="#3d80cc"/><polygon points="0,19 32,17 32,23 0,25" fill="#1a5fb4"/></g><circle cx="16" cy="26.5" r="3.2" fill="none" stroke="#8ec1f2" stroke-width="2"/></svg><span class="brand-name">← QLD Civil Engineering Hub</span></a></p>
+
+<h1>QLD Public Holidays</h1>
+<p class="sub">Queensland public holidays for 2026 and 2027, as gazetted by the Queensland Government.</p>
+
+<div class="upcoming" id="upcoming" style="display:none"></div>
+
+<h2>2026</h2>
+<table>
+  <thead>
+    <tr><th class="col-date">Date</th><th class="col-day">Day</th><th>Public holiday</th></tr>
+  </thead>
+  <tbody id="y2026"></tbody>
+</table>
+
+<h2>2027</h2>
+<table>
+  <thead>
+    <tr><th class="col-date">Date</th><th class="col-day">Day</th><th>Public holiday</th></tr>
+  </thead>
+  <tbody id="y2027"></tbody>
+</table>
+
+<div class="note">
+  <strong>Royal Queensland Show (Ekka):</strong> this holiday applies to the <strong>Brisbane local government area only</strong>. Other QLD regions observe their own local show holiday on different dates — check your local council or the source below.<br />
+  <strong>Christmas Eve</strong> is a part-day public holiday (6pm to midnight).<br />
+  Under the <em>Holidays Act 1983</em> (Qld), an additional public holiday applies when Christmas Day, Boxing Day or New Year's Day falls on a weekend.<br /><br />
+  Source: <a href="https://www.qld.gov.au/recreation/travel/holidays/public" target="_blank">Queensland Government — Queensland public holidays</a> (checked 12 July 2026). Dates can change by gazette notice — always confirm with the official source before planning work programs or contract dates.
+</div>
+
+<script>
+  // Data transcribed from the Queensland Government official page
+  // (www.qld.gov.au/recreation/travel/holidays/public), checked 12 July 2026.
+  // 'day' is kept alongside the date as a transcription cross-check.
+  // [DATA-START]
+  var HOLIDAYS = {
+    2026: [
+      { d: '2026-01-01', day: 'Thu', n: "New Year's Day" },
+      { d: '2026-01-26', day: 'Mon', n: 'Australia Day' },
+      { d: '2026-04-03', day: 'Fri', n: 'Good Friday' },
+      { d: '2026-04-04', day: 'Sat', n: 'The day after Good Friday' },
+      { d: '2026-04-05', day: 'Sun', n: 'Easter Sunday' },
+      { d: '2026-04-06', day: 'Mon', n: 'Easter Monday' },
+      { d: '2026-04-25', day: 'Sat', n: 'Anzac Day' },
+      { d: '2026-05-04', day: 'Mon', n: 'Labour Day' },
+      { d: '2026-08-12', day: 'Wed', n: 'Royal Queensland Show (Ekka)', note: 'Brisbane area only' },
+      { d: '2026-10-05', day: 'Mon', n: "King's Birthday" },
+      { d: '2026-12-24', day: 'Thu', n: 'Christmas Eve', note: 'part-day: 6pm to midnight' },
+      { d: '2026-12-25', day: 'Fri', n: 'Christmas Day' },
+      { d: '2026-12-26', day: 'Sat', n: 'Boxing Day' },
+      { d: '2026-12-28', day: 'Mon', n: 'Boxing Day — additional public holiday', note: 'Boxing Day falls on a Saturday' }
+    ],
+    2027: [
+      { d: '2027-01-01', day: 'Fri', n: "New Year's Day" },
+      { d: '2027-01-26', day: 'Tue', n: 'Australia Day' },
+      { d: '2027-03-26', day: 'Fri', n: 'Good Friday' },
+      { d: '2027-03-27', day: 'Sat', n: 'The day after Good Friday' },
+      { d: '2027-03-28', day: 'Sun', n: 'Easter Sunday' },
+      { d: '2027-03-29', day: 'Mon', n: 'Easter Monday' },
+      { d: '2027-04-26', day: 'Mon', n: 'Anzac Day', note: '25 April falls on a Sunday — holiday observed Monday' },
+      { d: '2027-05-03', day: 'Mon', n: 'Labour Day' },
+      { d: '2027-08-11', day: 'Wed', n: 'Royal Queensland Show (Ekka)', note: 'Brisbane area only' },
+      { d: '2027-10-04', day: 'Mon', n: "King's Birthday" },
+      { d: '2027-12-24', day: 'Fri', n: 'Christmas Eve', note: 'part-day: 6pm to midnight' },
+      { d: '2027-12-25', day: 'Sat', n: 'Christmas Day' },
+      { d: '2027-12-26', day: 'Sun', n: 'Boxing Day' },
+      { d: '2027-12-27', day: 'Mon', n: 'Christmas Day — additional public holiday', note: 'Christmas Day falls on a Saturday' },
+      { d: '2027-12-28', day: 'Tue', n: 'Boxing Day — additional public holiday', note: 'Boxing Day falls on a Sunday' }
+    ]
+  };
+  // [DATA-END]
+
+  var DAYS   = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  var DAYS_LONG = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+  // Parse 'YYYY-MM-DD' as a local date (avoids UTC offset issues)
+  function parseLocal(d) {
+    var p = d.split('-');
+    return new Date(+p[0], +p[1] - 1, +p[2]);
+  }
+
+  function render() {
+    var today = new Date();
+    today.setHours(0, 0, 0, 0);
+    var nextEntry = null;
+    var nextRow = null;
+
+    Object.keys(HOLIDAYS).forEach(function (year) {
+      var tbody = document.getElementById('y' + year);
+      if (!tbody) return;
+      HOLIDAYS[year].forEach(function (h) {
+        var date = parseLocal(h.d);
+
+        // Self-check: stored day-of-week must match the actual date
+        if (DAYS[date.getDay()] !== h.day) {
+          console.warn('Day-of-week mismatch for ' + h.d + ': stored ' + h.day + ', actual ' + DAYS[date.getDay()]);
+        }
+
+        var tr = document.createElement('tr');
+        var tdDate = document.createElement('td');
+        var tdDay  = document.createElement('td');
+        var tdName = document.createElement('td');
+        tdDate.textContent = date.getDate() + ' ' + MONTHS[date.getMonth()] + ' ' + year;
+        tdDay.textContent = h.day;
+        tdName.textContent = h.n;
+        if (h.note) {
+          var span = document.createElement('span');
+          span.className = 'hint';
+          span.textContent = ' — ' + h.note;
+          tdName.appendChild(span);
+        }
+        tr.appendChild(tdDate);
+        tr.appendChild(tdDay);
+        tr.appendChild(tdName);
+
+        if (date < today) {
+          tr.className = 'past';
+        } else if (!nextEntry) {
+          nextEntry = h;
+          nextRow = tr;
+        }
+        tbody.appendChild(tr);
+      });
+    });
+
+    var banner = document.getElementById('upcoming');
+    if (nextEntry) {
+      nextRow.className = 'next-holiday';
+      var date = parseLocal(nextEntry.d);
+      var daysAway = Math.round((date - today) / 86400000);
+      var when = daysAway === 0 ? 'today' : daysAway === 1 ? 'tomorrow' : 'in ' + daysAway + ' days';
+      banner.innerHTML = 'Next public holiday: <strong></strong> — ' +
+        DAYS_LONG[date.getDay()] + ' ' + date.getDate() + ' ' + MONTHS[date.getMonth()] + ' ' +
+        date.getFullYear() + ' (' + when + ')';
+      banner.querySelector('strong').textContent = nextEntry.n;
+      banner.style.display = '';
+    } else {
+      banner.textContent = 'Holiday data on this page ends at 2027 — check the official source below for later years.';
+      banner.style.display = '';
+    }
+  }
+
+  render();
+</script>
+
+<footer>
+  <div class="footer-links">
+    <a href="about.html">About</a>
+    <span style="color:#ccc">|</span>
+    <a href="privacy.html">Privacy</a>
+    <span style="color:#ccc">|</span>
+    <a href="contact.html">Contact</a>
+  </div>
+</footer>
+
+</body>
+</html>

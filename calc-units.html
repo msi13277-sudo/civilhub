@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unit Converter — QLD Civil Engineering Hub</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Cdefs%3E%3CclipPath%20id='c'%3E%3Crect%20width='32'%20height='32'%20rx='7'/%3E%3C/clipPath%3E%3C/defs%3E%3Crect%20width='32'%20height='32'%20rx='7'%20fill='%2317406e'/%3E%3Cg%20clip-path='url(%23c)'%3E%3Cpolygon%20points='0,10%2032,8%2032,12%200,14'%20fill='%238ec1f2'/%3E%3Cpolygon%20points='0,14%2032,12%2032,17%200,19'%20fill='%233d80cc'/%3E%3Cpolygon%20points='0,19%2032,17%2032,23%200,25'%20fill='%231a5fb4'/%3E%3C/g%3E%3Ccircle%20cx='16'%20cy='26.5'%20r='3.2'%20fill='none'%20stroke='%238ec1f2'%20stroke-width='2'/%3E%3C/svg%3E" />
+  <style>
+    body { font-family: sans-serif; max-width: 600px; margin: 40px auto; padding: 0 20px; }
+    a { color: #1a5fb4; }
+    .brand { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-size: 14px; font-weight: 600; }
+    .brand svg { display: block; }
+    .brand:hover .brand-name { text-decoration: underline; }
+    h1 { margin-bottom: 4px; }
+    p.sub { color: #666; margin-bottom: 24px; }
+    h2 { margin-top: 32px; margin-bottom: 10px; }
+    table { border-collapse: collapse; width: 100%; margin-bottom: 8px; }
+    td, th { border: 1px solid #ccc; padding: 8px 12px; }
+    th { background: #f0f0f0; text-align: left; width: 40%; }
+    input[type=number] { width: 130px; padding: 4px 8px; font-size: 15px; }
+    select { padding: 4px 8px; font-size: 14px; }
+    .result { font-weight: bold; color: #1a5fb4; word-break: break-all; }
+    .hint { color: #888; font-size: 12px; }
+    hr { border: none; border-top: 1px solid #ddd; margin: 32px 0; }
+    .note { background: #f8f8f8; border: 1px solid #ddd; padding: 12px; font-size: 13px; margin-top: 24px; }
+    .share-row { margin: 4px 0 0; }
+    .share-row button, #swap { padding: 5px 14px; font-size: 13px; cursor: pointer; background: #f0f0f0; border: 1px solid #bbb; border-radius: 3px; color: #333; }
+    .share-row button:hover, #swap:hover { background: #e6e6e6; }
+    #swap { margin-left: 8px; }
+    .share-msg { color: #2e7d32; font-size: 12px; margin-left: 8px; }
+    #share-url { width: 100%; margin-top: 6px; padding: 4px 8px; font-size: 12px; box-sizing: border-box; }
+    footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid #ccc; font-size: 13px; }
+    footer .footer-links { display: flex; gap: 16px; flex-wrap: wrap; }
+    footer .footer-links a { color: #555; }
+  </style>
+</head>
+<body>
+
+<p><a class="brand" href="index.html" title="Back to Hub"><svg width="20" height="20" viewBox="0 0 32 32" aria-hidden="true"><defs><clipPath id="hublogo-clip"><rect width="32" height="32" rx="7"/></clipPath></defs><rect width="32" height="32" rx="7" fill="#17406e"/><g clip-path="url(#hublogo-clip)"><polygon points="0,10 32,8 32,12 0,14" fill="#8ec1f2"/><polygon points="0,14 32,12 32,17 0,19" fill="#3d80cc"/><polygon points="0,19 32,17 32,23 0,25" fill="#1a5fb4"/></g><circle cx="16" cy="26.5" r="3.2" fill="none" stroke="#8ec1f2" stroke-width="2"/></svg><span class="brand-name">← QLD Civil Engineering Hub</span></a></p>
+
+<h1>Unit Converter</h1>
+<p class="sub">Civil engineering units — length, area, volume, flow, mass, pressure / head.</p>
+
+<h2>Inputs</h2>
+<table>
+  <tr>
+    <th>Category</th>
+    <td><select id="cat" aria-label="Unit category"></select></td>
+  </tr>
+  <tr>
+    <th>Value</th>
+    <td>
+      <input type="number" id="val" placeholder="e.g. 2500" step="any" />
+      <select id="from" aria-label="From unit"></select>
+    </td>
+  </tr>
+  <tr>
+    <th>Convert to</th>
+    <td>
+      <select id="to" aria-label="To unit"></select>
+      <button type="button" id="swap" title="Swap from / to units">&#8644; Swap</button>
+    </td>
+  </tr>
+</table>
+
+<hr />
+
+<h2>Results</h2>
+<table>
+  <tr><th>Result</th>            <td class="result" id="r-out">—</td></tr>
+  <tr><th>Conversion factor</th> <td id="r-factor">—</td></tr>
+</table>
+
+<div class="share-row">
+  <button type="button" id="share-btn" title="Copy a link that restores these inputs">Copy link</button>
+  <span class="share-msg" id="share-msg"></span>
+  <input type="text" id="share-url" readonly style="display:none" aria-label="Shareable link" />
+</div>
+
+<div class="note">
+  Handy exact factors: 1 ha = 10,000 m² &nbsp;·&nbsp; 1 ML = 1,000 m³ = 1,000,000 L &nbsp;·&nbsp; 1 ML/day ≈ 11.574 L/s &nbsp;·&nbsp; 1 m head = 9.80665 kPa &nbsp;·&nbsp; 1 bar = 100 kPa. For reference and checking only — verify with a qualified engineer.
+  <br /><br />
+  <span class="hint">References: 1 m head of water = 9.80665 kPa (standard gravity g&#8320; = 9.80665 m/s², ISO 80000); 1 international acre = 4,046.856&#8201;422&#8201;4 m²; 1 psi = 6.894757 kPa; 1 ML/day = 1,000 m³ / 86,400 s.</span>
+</div>
+
+<script>
+  // ── Core conversion data & logic (pure, DOM-free) ──────────────────
+  // [CORE-START]
+  var CATS = {
+    length: { label: 'Length', def: ['mm', 'm'], units: [
+      { k: 'mm', f: 0.001 },
+      { k: 'cm', f: 0.01 },
+      { k: 'm',  f: 1 },
+      { k: 'km', f: 1000 }
+    ]},
+    area: { label: 'Area', def: ['m²', 'ha'], units: [
+      { k: 'mm²',  f: 1e-6 },
+      { k: 'm²',   f: 1 },
+      { k: 'ha',   f: 10000 },
+      { k: 'km²',  f: 1e6 },
+      { k: 'acre', f: 4046.8564224 }   // international acre (exact)
+    ]},
+    volume: { label: 'Volume', def: ['m³', 'L'], units: [
+      { k: 'mm³', f: 1e-9 },
+      { k: 'L',   f: 0.001 },
+      { k: 'm³',  f: 1 },
+      { k: 'ML',  f: 1000 }
+    ]},
+    flow: { label: 'Flow', def: ['L/s', 'ML/day'], units: [
+      { k: 'L/s',    f: 0.001 },
+      { k: 'm³/s',   f: 1 },
+      { k: 'ML/day', f: 1000 / 86400 } // 1 ML per day in m³/s
+    ]},
+    mass: { label: 'Mass', def: ['kg', 't'], units: [
+      { k: 'kg', f: 1 },
+      { k: 't',  f: 1000 }
+    ]},
+    pressure: { label: 'Pressure / Head', def: ['m head', 'kPa'], units: [
+      { k: 'kPa',    f: 1 },
+      { k: 'm head', f: 9.80665 },          // standard gravity, water
+      { k: 'bar',    f: 100 },
+      { k: 'psi',    f: 6.894757293168361 } // 1 psi in kPa
+    ]}
+  };
+
+  function getUnit(catKey, unitKey) {
+    // hasOwnProperty guard: reject inherited keys like 'constructor' / '__proto__'
+    var cat = Object.prototype.hasOwnProperty.call(CATS, catKey) ? CATS[catKey] : null;
+    if (!cat) return null;
+    for (var i = 0; i < cat.units.length; i++) {
+      if (cat.units[i].k === unitKey) return cat.units[i];
+    }
+    return null;
+  }
+
+  // value in fromKey → value in toKey (same category), or NaN if invalid
+  function convertValue(v, catKey, fromKey, toKey) {
+    var from = getUnit(catKey, fromKey);
+    var to   = getUnit(catKey, toKey);
+    if (!from || !to || typeof v !== 'number' || isNaN(v) || !isFinite(v)) return NaN;
+    return v * from.f / to.f;
+  }
+
+  function padZeros(n) {
+    var s = '';
+    for (var i = 0; i < n; i++) s += '0';
+    return s;
+  }
+
+  // Expand "1.234e-8" style strings to plain decimal notation
+  function expandExp(str) {
+    var parts = String(str).toLowerCase().split('e');
+    if (parts.length === 1) return str;
+    var mant = parts[0];
+    var exp  = parseInt(parts[1], 10);
+    var neg  = false;
+    if (mant.charAt(0) === '-') { neg = true; mant = mant.substring(1); }
+    var dot    = mant.indexOf('.');
+    var digits = dot === -1 ? mant : mant.substring(0, dot) + mant.substring(dot + 1);
+    var intLen = dot === -1 ? mant.length : dot;
+    var p = intLen + exp;
+    var out;
+    if (p <= 0)                  out = '0.' + padZeros(-p) + digits;
+    else if (p >= digits.length) out = digits + padZeros(p - digits.length);
+    else                         out = digits.substring(0, p) + '.' + digits.substring(p);
+    return (neg ? '-' : '') + out;
+  }
+
+  function trimZeros(s) {
+    if (s.indexOf('.') === -1) return s;
+    return s.replace(/0+$/, '').replace(/\.$/, '');
+  }
+
+  // Format to 12 significant figures, plain notation for the practical range
+  function fmtResult(n) {
+    if (typeof n !== 'number' || isNaN(n) || !isFinite(n)) return null;
+    if (n === 0) return '0';
+    var r = Number(n.toPrecision(14));    // strip floating-point noise
+    var abs = Math.abs(r);
+    if (abs >= 1e15 || abs < 1e-10) {
+      return r.toExponential(6).replace(/\.?0+e/, 'e');
+    }
+    return trimZeros(expandExp(r.toPrecision(12)));
+  }
+  // [CORE-END]
+
+  // ── DOM wiring ─────────────────────────────────────────────────────
+  const catSel  = document.getElementById('cat');
+  const valI    = document.getElementById('val');
+  const fromSel = document.getElementById('from');
+  const toSel   = document.getElementById('to');
+  const outTd   = document.getElementById('r-out');
+  const factTd  = document.getElementById('r-factor');
+
+  for (const key in CATS) {
+    const opt = document.createElement('option');
+    opt.value = key;
+    opt.textContent = CATS[key].label;
+    catSel.appendChild(opt);
+  }
+
+  function buildUnitOptions(sel, catKey, selectedKey) {
+    sel.innerHTML = '';
+    CATS[catKey].units.forEach(u => {
+      const opt = document.createElement('option');
+      opt.value = u.k;
+      opt.textContent = u.k;
+      sel.appendChild(opt);
+    });
+    sel.value = selectedKey;
+  }
+
+  function onCatChange() {
+    const cat = CATS[catSel.value];
+    buildUnitOptions(fromSel, catSel.value, cat.def[0]);
+    buildUnitOptions(toSel,   catSel.value, cat.def[1]);
+    recalc();
+  }
+
+  function recalc() {
+    const factor = convertValue(1, catSel.value, fromSel.value, toSel.value);
+    factTd.textContent = isNaN(factor) ? '—'
+      : '1 ' + fromSel.value + ' = ' + fmtResult(factor) + ' ' + toSel.value;
+
+    const v = parseFloat(valI.value);
+    const res = convertValue(v, catSel.value, fromSel.value, toSel.value);
+    const s = fmtResult(res);
+    outTd.textContent = s === null ? '—'
+      : valI.value + ' ' + fromSel.value + ' = ' + s + ' ' + toSel.value;
+  }
+
+  document.getElementById('swap').addEventListener('click', () => {
+    const f = fromSel.value;
+    fromSel.value = toSel.value;
+    toSel.value = f;
+    recalc();
+  });
+
+  catSel.addEventListener('change', onCatChange);
+  fromSel.addEventListener('change', recalc);
+  toSel.addEventListener('change', recalc);
+  valI.addEventListener('input', recalc);
+
+  // ── Share link (URL query parameters) ─────────────────────────────
+  const shareBtn = document.getElementById('share-btn');
+  const shareMsg = document.getElementById('share-msg');
+  const shareBox = document.getElementById('share-url');
+  let shareMsgTimer = null;
+
+  function pageURL() { return location.href.split('#')[0].split('?')[0]; }
+
+  function buildShareURL() {
+    if (valI.value === '') return null;
+    const p = new URLSearchParams();
+    p.set('cat',  catSel.value);
+    p.set('from', fromSel.value);
+    p.set('to',   toSel.value);
+    p.set('val',  valI.value);
+    return pageURL() + '?' + p.toString();
+  }
+
+  function showShareMsg(text) {
+    shareMsg.textContent = text;
+    clearTimeout(shareMsgTimer);
+    shareMsgTimer = setTimeout(() => { shareMsg.textContent = ''; }, 2500);
+  }
+
+  function shareFallback(url) {
+    shareBox.style.display = '';
+    shareBox.value = url;
+    shareBox.focus();
+    shareBox.select();
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) {}
+    showShareMsg(ok ? 'Copied!' : 'Press Ctrl+C to copy');
+  }
+
+  shareBtn.addEventListener('click', () => {
+    const url = buildShareURL();
+    if (!url) { showShareMsg('Enter a value first'); return; }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url)
+        .then(() => { shareBox.style.display = 'none'; showShareMsg('Copied!'); })
+        .catch(() => shareFallback(url));
+    } else {
+      shareFallback(url);
+    }
+  });
+
+  // Restore inputs from URL parameters and recalculate
+  (function restoreFromURL() {
+    const p = new URLSearchParams(location.search);
+    const cat = p.get('cat');
+    if (cat && Object.prototype.hasOwnProperty.call(CATS, cat)) catSel.value = cat;
+    onCatChange();                       // builds unit selects (defaults)
+    if (p.has('from') && getUnit(catSel.value, p.get('from'))) fromSel.value = p.get('from');
+    if (p.has('to')   && getUnit(catSel.value, p.get('to')))   toSel.value   = p.get('to');
+    if (p.has('val')) valI.value = p.get('val');
+    recalc();
+  })();
+</script>
+
+<footer>
+  <div class="footer-links">
+    <a href="about.html">About</a>
+    <span style="color:#ccc">|</span>
+    <a href="privacy.html">Privacy</a>
+    <span style="color:#ccc">|</span>
+    <a href="contact.html">Contact</a>
+  </div>
+</footer>
+
+</body>
+</html>
