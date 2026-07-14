@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Driveway Grade Checker (AS/NZS 2890.1) — Aus Civil Hub</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Cdefs%3E%3CclipPath%20id='c'%3E%3Crect%20width='32'%20height='32'%20rx='7'/%3E%3C/clipPath%3E%3C/defs%3E%3Crect%20width='32'%20height='32'%20rx='7'%20fill='%2317406e'/%3E%3Cg%20clip-path='url(%23c)'%3E%3Cpolygon%20points='0,10%2032,8%2032,12%200,14'%20fill='%238ec1f2'/%3E%3Cpolygon%20points='0,14%2032,12%2032,17%200,19'%20fill='%233d80cc'/%3E%3Cpolygon%20points='0,19%2032,17%2032,23%200,25'%20fill='%231a5fb4'/%3E%3C/g%3E%3Ccircle%20cx='16'%20cy='26.5'%20r='3.2'%20fill='none'%20stroke='%238ec1f2'%20stroke-width='2'/%3E%3C/svg%3E" />
+  <style>
+    body { font-family: sans-serif; max-width: 600px; margin: 40px auto; padding: 0 20px; }
+    a { color: #1a5fb4; }
+    .brand { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-size: 14px; font-weight: 600; }
+    .brand svg { display: block; }
+    .brand:hover .brand-name { text-decoration: underline; }
+    h1 { margin-bottom: 4px; }
+    p.sub { color: #666; margin-bottom: 24px; }
+    h2 { margin-top: 32px; margin-bottom: 10px; }
+    table { border-collapse: collapse; width: 100%; margin-bottom: 8px; }
+    td, th { border: 1px solid #ccc; padding: 8px 12px; }
+    th { background: #f0f0f0; text-align: left; width: 40%; }
+    input[type=number] { width: 130px; padding: 4px 8px; font-size: 15px; }
+    select { padding: 4px 8px; font-size: 14px; }
+    .result { font-weight: bold; color: #1a5fb4; }
+    .verdict { font-weight: bold; font-size: 16px; }
+    .pass { color: #2e7d32; }
+    .review { color: #c62828; }
+    .hint { color: #888; font-size: 12px; }
+    hr { border: none; border-top: 1px solid #ddd; margin: 32px 0; }
+    .note { background: #f8f8f8; border: 1px solid #ddd; padding: 12px; font-size: 13px; margin-top: 24px; }
+    .note h3 { margin: 0 0 6px; font-size: 13px; }
+    .std-table { margin-top: 12px; }
+    .std-table td, .std-table th { font-size: 12px; padding: 5px 8px; }
+    .refs { font-size: 12px; color: #666; margin-top: 16px; line-height: 1.5; }
+    .refs h3 { font-size: 12px; margin: 0 0 4px; color: #444; }
+    .share-row { margin: 4px 0 0; }
+    .share-row button { padding: 5px 14px; font-size: 13px; cursor: pointer; background: #f0f0f0; border: 1px solid #bbb; border-radius: 3px; color: #333; }
+    .share-row button:hover { background: #e6e6e6; }
+    .share-msg { color: #2e7d32; font-size: 12px; margin-left: 8px; }
+    #share-url { width: 100%; margin-top: 6px; padding: 4px 8px; font-size: 12px; box-sizing: border-box; }
+    footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid #ccc; font-size: 13px; }
+    footer .footer-links { display: flex; gap: 16px; flex-wrap: wrap; }
+    footer .footer-links a { color: #555; }
+  </style>
+</head>
+<body>
+
+<p><a class="brand" href="index.html" title="Back to Hub"><svg width="20" height="20" viewBox="0 0 32 32" aria-hidden="true"><defs><clipPath id="hublogo-clip"><rect width="32" height="32" rx="7"/></clipPath></defs><rect width="32" height="32" rx="7" fill="#17406e"/><g clip-path="url(#hublogo-clip)"><polygon points="0,10 32,8 32,12 0,14" fill="#8ec1f2"/><polygon points="0,14 32,12 32,17 0,19" fill="#3d80cc"/><polygon points="0,19 32,17 32,23 0,25" fill="#1a5fb4"/></g><circle cx="16" cy="26.5" r="3.2" fill="none" stroke="#8ec1f2" stroke-width="2"/></svg><span class="brand-name">← Aus Civil Hub</span></a></p>
+
+<h1>Driveway Grade Checker</h1>
+<p class="sub">Quick screen of a domestic driveway grade against commonly cited AS/NZS 2890.1 limits.</p>
+
+<h2>Inputs</h2>
+<table>
+  <tr>
+    <th>Driveway grade</th>
+    <td>
+      <select id="grade-mode">
+        <option value="pct" selected>Percentage (%)</option>
+        <option value="ratio">Ratio (1 in X)</option>
+      </select>
+      <span id="ratio-prefix" style="display:none">1 in </span>
+      <input type="number" id="grade" placeholder="e.g. 20" step="any" min="0" style="width:100px" />
+      <span id="pct-suffix">%</span>
+      <div class="hint">Steepest section of the ramp (magnitude)</div>
+    </td>
+  </tr>
+  <tr>
+    <th>Change of grade <span style="font-weight:normal">(optional)</span></th>
+    <td>
+      <input type="number" id="cog" placeholder="e.g. 15" step="any" min="0" /> %
+      <div class="hint">Algebraic grade difference at a break point, e.g. +10% to −5% = 15%</div>
+    </td>
+  </tr>
+  <tr>
+    <th>Break type</th>
+    <td>
+      <select id="break-type">
+        <option value="summit" selected>Summit / crest (hump)</option>
+        <option value="sag">Sag / dip (valley)</option>
+      </select>
+    </td>
+  </tr>
+</table>
+
+<hr />
+
+<h2>Results</h2>
+<table>
+  <tr><th>Grade</th>               <td class="result" id="r-grade">—</td></tr>
+  <tr><th>Max grade check</th>     <td id="r-maxcheck">—</td></tr>
+  <tr><th>Change-of-grade check</th> <td id="r-cogcheck">—</td></tr>
+  <tr><th>Overall</th>             <td id="r-verdict">—</td></tr>
+</table>
+
+<div class="share-row">
+  <button type="button" id="share-btn" title="Copy a link that restores these inputs">Copy link</button>
+  <span class="share-msg" id="share-msg"></span>
+  <input type="text" id="share-url" readonly style="display:none" aria-label="Shareable link" />
+</div>
+
+<div class="note">
+  <h3>Commonly cited AS/NZS 2890.1 domestic limits</h3>
+  <table class="std-table">
+    <tr><th>Item</th><th>Limit</th></tr>
+    <tr><td>Max driveway grade (domestic)</td><td>1 in 4 = 25%</td></tr>
+    <tr><td>Max change of grade at a summit/crest without a transition</td><td>12.5% (1 in 8)</td></tr>
+    <tr><td>Max change of grade at a sag without a transition</td><td>15% (1 in 6.7)</td></tr>
+    <tr><td>Transition length where a transition is required</td><td>min ~2.0 m (typically at half the grade change)</td></tr>
+  </table>
+  <p style="margin:10px 0 0">
+    <strong>Important:</strong> This is a screening aid only. The actual AS/NZS 2890.1 standard, ground-vehicle
+    clearance checks (Appendix C templates) and — critically — the relevant <strong>council / authority</strong>
+    requirements take precedence and are often stricter (many QLD councils prefer a working maximum near 1 in 5 = 20%).
+    A "Review" result flags that a transition or engineering assessment is likely needed, not that the design is illegal.
+    For reference and checking only — verify with a qualified engineer.
+  </p>
+</div>
+
+<div class="refs">
+  <h3>References</h3>
+  Numeric limits are the values widely cited for AS/NZS 2890.1:2004 <em>Parking facilities — Off-street car parking</em>
+  (domestic driveway gradients and grade-change transitions). Cross-checked against public engineering summaries
+  (ML Traffic Engineers; Traffic &amp; Parking Australia). This tool does not reproduce the standard — obtain the current
+  AS/NZS 2890.1 and the applicable council standard drawings for design use.
+</div>
+
+<script>
+  // ── Core check logic (pure, DOM-free) ──────────────────────────────
+  // [CORE-START]
+  var MAX_GRADE_PCT   = 25;    // 1 in 4, domestic maximum
+  var COG_SUMMIT_PCT  = 12.5;  // max change of grade at crest without transition
+  var COG_SAG_PCT     = 15;    // max change of grade at sag without transition
+
+  // grade & cog are magnitudes in %. breakType: 'summit' | 'sag'.
+  function checkDriveway(gradePct, cogPct, breakType) {
+    var out = { grade: null, cog: null };
+    if (typeof gradePct === 'number' && isFinite(gradePct) && gradePct >= 0) {
+      out.grade = {
+        limit: MAX_GRADE_PCT,
+        pass: gradePct <= MAX_GRADE_PCT + 1e-9
+      };
+    }
+    if (typeof cogPct === 'number' && isFinite(cogPct) && cogPct >= 0) {
+      var lim = breakType === 'sag' ? COG_SAG_PCT : COG_SUMMIT_PCT;
+      out.cog = {
+        limit: lim,
+        type: breakType === 'sag' ? 'sag' : 'summit',
+        pass: cogPct <= lim + 1e-9   // pass = no transition required
+      };
+    }
+    return out;
+  }
+  // [CORE-END]
+
+  const modeSel   = document.getElementById('grade-mode');
+  const gradeI    = document.getElementById('grade');
+  const cogI      = document.getElementById('cog');
+  const breakSel  = document.getElementById('break-type');
+  const gradeOut  = document.getElementById('r-grade');
+  const maxOut    = document.getElementById('r-maxcheck');
+  const cogOut    = document.getElementById('r-cogcheck');
+  const verdOut   = document.getElementById('r-verdict');
+
+  function fmt(n, dp) {
+    if (!isFinite(n) || isNaN(n)) return '—';
+    return parseFloat(n.toFixed(dp)).toString();
+  }
+
+  // Driveway grade as a %, or null
+  function getGradePct() {
+    const v = parseFloat(gradeI.value);
+    if (isNaN(v) || !isFinite(v) || v < 0) return null;
+    if (modeSel.value === 'pct') return v;
+    if (v === 0) return null;         // 1 in 0 undefined
+    return 100 / v;                   // 1 in X -> %
+  }
+
+  function getCogPct() {
+    const v = parseFloat(cogI.value);
+    return (isNaN(v) || !isFinite(v) || v < 0) ? null : v;
+  }
+
+  function onModeChange() {
+    const ratio = modeSel.value === 'ratio';
+    document.getElementById('ratio-prefix').style.display = ratio ? '' : 'none';
+    document.getElementById('pct-suffix').style.display   = ratio ? 'none' : '';
+    gradeI.placeholder = ratio ? 'e.g. 5' : 'e.g. 20';
+    recalc();
+  }
+
+  function recalc() {
+    const gradePct = getGradePct();
+    const cogPct   = getCogPct();
+    const res = checkDriveway(
+      gradePct === null ? NaN : gradePct,
+      cogPct === null ? NaN : cogPct,
+      breakSel.value
+    );
+
+    // Grade echo
+    if (gradePct === null) {
+      gradeOut.textContent = '—';
+      maxOut.innerHTML = '—';
+    } else {
+      const ratioStr = gradePct === 0 ? '—' : ('1 in ' + fmt(100 / gradePct, 2));
+      gradeOut.textContent = fmt(gradePct, 3) + '%  (' + ratioStr + ')';
+      const g = res.grade;
+      maxOut.innerHTML = g.pass
+        ? '<span class="verdict pass">PASS</span> — within max ' + g.limit + '% (1 in 4)'
+        : '<span class="verdict review">REVIEW</span> — exceeds max ' + g.limit + '% (1 in 4)';
+    }
+
+    // Change-of-grade echo
+    if (cogPct === null) {
+      cogOut.textContent = '— (optional)';
+    } else {
+      const c = res.cog;
+      cogOut.innerHTML = c.pass
+        ? '<span class="verdict pass">PASS</span> — ' + fmt(cogPct, 3) + '% ≤ ' + c.limit + '% ' + c.type + ' limit; no transition required'
+        : '<span class="verdict review">REVIEW</span> — ' + fmt(cogPct, 3) + '% > ' + c.limit + '% ' + c.type + ' limit; transition required';
+    }
+
+    // Overall
+    if (gradePct === null && cogPct === null) {
+      verdOut.textContent = '—';
+      return;
+    }
+    let ok = true;
+    if (res.grade && !res.grade.pass) ok = false;
+    if (res.cog && !res.cog.pass)     ok = false;
+    verdOut.innerHTML = ok
+      ? '<span class="verdict pass">PASS</span> — within cited limits (verify against council)'
+      : '<span class="verdict review">REVIEW</span> — see checks above';
+  }
+
+  gradeI.addEventListener('input', recalc);
+  cogI.addEventListener('input', recalc);
+  breakSel.addEventListener('change', recalc);
+  modeSel.addEventListener('change', onModeChange);
+
+  // ── Share link (URL query parameters) ─────────────────────────────
+  const shareBtn = document.getElementById('share-btn');
+  const shareMsg = document.getElementById('share-msg');
+  const shareBox = document.getElementById('share-url');
+  let shareMsgTimer = null;
+
+  function pageURL() { return location.href.split('#')[0].split('?')[0]; }
+
+  function buildShareURL() {
+    if (getGradePct() === null && getCogPct() === null) return null;
+    const p = new URLSearchParams();
+    p.set('mode', modeSel.value);
+    if (gradeI.value !== '') p.set('grade', gradeI.value);
+    if (cogI.value !== '')   { p.set('cog', cogI.value); p.set('bt', breakSel.value); }
+    return pageURL() + '?' + p.toString();
+  }
+
+  function showShareMsg(text) {
+    shareMsg.textContent = text;
+    clearTimeout(shareMsgTimer);
+    shareMsgTimer = setTimeout(() => { shareMsg.textContent = ''; }, 2500);
+  }
+
+  function shareFallback(url) {
+    shareBox.style.display = '';
+    shareBox.value = url;
+    shareBox.focus();
+    shareBox.select();
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) {}
+    showShareMsg(ok ? 'Copied!' : 'Press Ctrl+C to copy');
+  }
+
+  shareBtn.addEventListener('click', () => {
+    const url = buildShareURL();
+    if (!url) { showShareMsg('Enter a grade first'); return; }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url)
+        .then(() => { shareBox.style.display = 'none'; showShareMsg('Copied!'); })
+        .catch(() => shareFallback(url));
+    } else {
+      shareFallback(url);
+    }
+  });
+
+  // Restore inputs from URL parameters and recalculate
+  (function restoreFromURL() {
+    const p = new URLSearchParams(location.search);
+    if (![...p.keys()].length) { onModeChange(); return; }
+    if (p.get('mode') === 'ratio' || p.get('mode') === 'pct') modeSel.value = p.get('mode');
+    if (p.has('grade')) gradeI.value = p.get('grade');
+    if (p.has('cog'))   cogI.value   = p.get('cog');
+    if (p.get('bt') === 'sag' || p.get('bt') === 'summit') breakSel.value = p.get('bt');
+    onModeChange();
+  })();
+</script>
+
+<footer>
+  <div class="footer-links">
+    <a href="about.html">About</a>
+    <span style="color:#ccc">|</span>
+    <a href="privacy.html">Privacy</a>
+    <span style="color:#ccc">|</span>
+    <a href="contact.html">Contact</a>
+  </div>
+</footer>
+
+</body>
+</html>

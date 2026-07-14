@@ -3,34 +3,31 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aus Civil Hub — Australian Civil Engineering Links, Standards &amp; Tools</title>
-  <meta name="description" content="A free reference hub for civil engineering designers, drafters and engineers in Australia — council links, standard drawings, forms, mapping and quick calculators. Queensland live now, more states rolling out." />
+  <title>New South Wales — Aus Civil Hub (launching soon)</title>
+  <meta name="description" content="The NSW civil engineering hub is launching. In the meantime, use the site-wide calculators and Australia-wide resources here. Councils, mapping, standard drawings and forms for New South Wales are coming soon." />
   <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Cdefs%3E%3CclipPath%20id='c'%3E%3Crect%20width='32'%20height='32'%20rx='7'/%3E%3C/clipPath%3E%3C/defs%3E%3Crect%20width='32'%20height='32'%20rx='7'%20fill='%2317406e'/%3E%3Cg%20clip-path='url(%23c)'%3E%3Cpolygon%20points='0,10%2032,8%2032,12%200,14'%20fill='%238ec1f2'/%3E%3Cpolygon%20points='0,14%2032,12%2032,17%200,19'%20fill='%233d80cc'/%3E%3Cpolygon%20points='0,19%2032,17%2032,23%200,25'%20fill='%231a5fb4'/%3E%3C/g%3E%3Ccircle%20cx='16'%20cy='26.5'%20r='3.2'%20fill='none'%20stroke='%238ec1f2'%20stroke-width='2'/%3E%3C/svg%3E" />
   <style>
     body { font-family: sans-serif; max-width: 900px; margin: 40px auto; padding: 0 20px; }
-    .site-header { display: flex; align-items: center; gap: 14px; padding-bottom: 16px; border-bottom: 2px solid #1a5fb4; }
+    a { color: #1a5fb4; }
+    .brand { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-size: 14px; font-weight: 600; }
+    .brand svg { display: block; }
+    .brand:hover .brand-name { text-decoration: underline; }
+    .site-header { display: flex; align-items: center; gap: 14px; margin-top: 12px; padding-bottom: 16px; border-bottom: 2px solid #1a5fb4; }
     .site-header svg { display: block; flex-shrink: 0; }
     .site-header h1 { margin: 0; font-size: 26px; }
-    .tagline { color: #555; font-size: 15px; margin: 16px 0 4px; line-height: 1.5; }
+    .tagline { color: #555; font-size: 15px; margin: 14px 0 4px; line-height: 1.5; }
+    .statebar { font-size: 13px; color: #777; margin: 10px 0 0; }
+    .statebar a { color: #1a5fb4; }
+    .statebar .here { color: #17406e; font-weight: 600; }
     h2 { margin-top: 40px; margin-bottom: 8px; border-bottom: 1px solid #ccc; padding-bottom: 4px; }
     ul { margin: 0; padding-left: 20px; }
     li { margin: 4px 0; }
-    a { color: #1a5fb4; }
-
-    /* State selector */
-    .states { list-style: none; padding: 0; margin: 16px 0 4px; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
-    .states li { margin: 0; }
-    .state-card { display: block; border: 1px solid #cfd8e3; border-radius: 8px; padding: 14px 16px; text-decoration: none; color: inherit; background: #fbfcfe; height: 100%; box-sizing: border-box; }
-    a.state-card:hover { border-color: #1a5fb4; background: #f2f7fd; }
-    .state-card .name { font-weight: 600; font-size: 16px; color: #17406e; }
-    .state-card .meta { font-size: 12px; color: #777; margin-top: 3px; }
-    .state-card.live .badge { color: #2e7d32; font-weight: 600; }
-    .state-card.soon { opacity: 0.72; cursor: default; }
-    .state-card.soon .name { color: #555; }
-    .state-card.soon .badge { color: #999; }
-    .badge { font-size: 12px; }
-
     .lead { font-size: 14px; color: #666; margin: 6px 0 8px; }
+    .hero { background: #eaf3fc; border: 1px solid #b7d4ef; border-radius: 8px; padding: 16px 18px; margin: 18px 0 4px; line-height: 1.55; }
+    .hero strong { color: #17406e; }
+    .roadmap { list-style: none; padding: 0; margin: 10px 0 0; font-size: 14px; }
+    .roadmap li { margin: 6px 0; }
+    .roadmap .step { display: inline-block; min-width: 92px; font-weight: 600; color: #17406e; }
     footer {
       margin-top: 60px;
       padding-top: 24px;
@@ -57,6 +54,8 @@
 </head>
 <body>
 
+<p><a class="brand" href="../index.html" title="Aus Civil Hub home"><svg width="20" height="20" viewBox="0 0 32 32" aria-hidden="true"><defs><clipPath id="hublogo-clip"><rect width="32" height="32" rx="7"/></clipPath></defs><rect width="32" height="32" rx="7" fill="#17406e"/><g clip-path="url(#hublogo-clip)"><polygon points="0,10 32,8 32,12 0,14" fill="#8ec1f2"/><polygon points="0,14 32,12 32,17 0,19" fill="#3d80cc"/><polygon points="0,19 32,17 32,23 0,25" fill="#1a5fb4"/></g><circle cx="16" cy="26.5" r="3.2" fill="none" stroke="#8ec1f2" stroke-width="2"/></svg><span class="brand-name">← Aus Civil Hub</span></a></p>
+
 <header class="site-header">
   <svg width="40" height="40" viewBox="0 0 64 64" role="img" aria-label="Aus Civil Hub logo">
     <defs><clipPath id="logo-clip"><rect width="64" height="64" rx="14"/></clipPath></defs>
@@ -77,83 +76,59 @@
     <circle cx="55" cy="55.5" r="1.1" fill="#3d80cc"/>
     <circle cx="37.5" cy="49" r="1" fill="#3d80cc"/>
   </svg>
-  <h1>Aus Civil Hub</h1>
+  <h1>New South Wales</h1>
 </header>
 
-<p class="tagline">Civil engineering links, standards &amp; tools for Australia — Queensland live now, more states rolling out.</p>
+<p class="statebar">State: <a href="../qld/">Queensland</a> · <span class="here">New South Wales</span> · Victoria (soon) · WA (soon) · SA (soon)</p>
 
-<!-- ── CHOOSE YOUR STATE ── -->
-<h2>Choose your state</h2>
-<p class="lead">State-specific councils, mapping, standard drawings and forms live inside each state hub. Calculators and reference tools below are site-wide.</p>
-<ul class="states">
-  <li>
-    <a class="state-card live" href="qld/">
-      <span class="name">Queensland</span>
-      <div class="meta"><span class="badge">Live</span> · Councils, maps, drawings, forms, holidays</div>
-    </a>
-  </li>
-  <li>
-    <a class="state-card live" href="nsw/">
-      <span class="name">New South Wales</span>
-      <div class="meta"><span class="badge">Launching</span> · National tools + NSW preview</div>
-    </a>
-  </li>
-  <li>
-    <span class="state-card soon" aria-disabled="true">
-      <span class="name">Victoria</span>
-      <div class="meta"><span class="badge">Coming soon</span></div>
-    </span>
-  </li>
-  <li>
-    <span class="state-card soon" aria-disabled="true">
-      <span class="name">Western Australia</span>
-      <div class="meta"><span class="badge">Coming soon</span></div>
-    </span>
-  </li>
-  <li>
-    <span class="state-card soon" aria-disabled="true">
-      <span class="name">South Australia</span>
-      <div class="meta"><span class="badge">Coming soon</span></div>
-    </span>
-  </li>
-</ul>
+<div class="hero">
+  <strong>The NSW hub is launching — here's what's coming.</strong><br />
+  We're building the New South Wales civil reference the same way we built Queensland: official council, mapping, standards and forms links, each checked by hand. It isn't here yet — but the site-wide tools and Australia-wide resources below already work for NSW today.
+  <ul class="roadmap">
+    <li><span class="step">Step 1</span> Councils &amp; utilities (Sydney metro + major regional)</li>
+    <li><span class="step">Step 2</span> Planning portal, DA tracking &amp; mapping (NSW Planning Portal, SIX Maps)</li>
+    <li><span class="step">Step 3</span> Standard drawings (Transport for NSW + councils)</li>
+    <li><span class="step">Step 4</span> Forms, road permits &amp; public holidays</li>
+  </ul>
+</div>
 
-<!-- ── CALCULATORS (site-wide) ── -->
-<h2>Calculators</h2>
-<p class="lead">Quick, transparent tools for common design checks. They run entirely in your browser — nothing is sent to a server. Available for every state.</p>
+<!-- ── AVAILABLE NOW: SITE-WIDE TOOLS ── -->
+<h2>Available now — calculators</h2>
+<p class="lead">These run entirely in your browser and work for any state, including NSW.</p>
 <ul>
-  <li><a href="calc-units.html">Unit Converter</a> — length, area, volume, flow, mass, pressure/head</li>
-  <li><a href="calc-scale.html">Scale Converter</a> — drawing measurement ↔ real world distance</li>
-  <li><a href="calc-slope.html">Slope Converter</a> — %, 1 in X ratio, degrees, rise/run</li>
-  <li><a href="calc-slope-dims.html">Slope from Dimensions</a> — length + height (or RL / chainage) → slope</li>
-  <li><a href="calc-height.html">Height / RL from Slope &amp; Length</a> — slope + length → height change, final RL</li>
-  <li><a href="calc-manning.html">Pipe Flow (Manning's)</a> — full-bore capacity of a circular pipe</li>
-  <li><a href="calc-driveway.html">Driveway Grade Checker</a> — grade &amp; change-of-grade vs AS/NZS 2890.1 limits</li>
-  <li><a href="calc-cover.html">Pipe Cover Checker</a> — cover from surface &amp; invert RL vs minimum</li>
-  <li>Cut &amp; Fill Estimator — coming soon</li>
-  <li>Chainage Calculator — coming soon</li>
-  <li>RL &amp; Grade Checker — coming soon</li>
+  <li><a href="../calc-units.html">Unit Converter</a> — length, area, volume, flow, mass, pressure/head</li>
+  <li><a href="../calc-scale.html">Scale Converter</a> — drawing measurement ↔ real world distance</li>
+  <li><a href="../calc-slope.html">Slope Converter</a> — %, 1 in X ratio, degrees, rise/run</li>
+  <li><a href="../calc-slope-dims.html">Slope from Dimensions</a> — length + height (or RL / chainage) → slope</li>
+  <li><a href="../calc-height.html">Height / RL from Slope &amp; Length</a> — slope + length → height change, final RL</li>
+  <li><a href="../calc-manning.html">Pipe Flow (Manning's)</a> — full-bore capacity of a circular pipe</li>
+  <li><a href="../calc-driveway.html">Driveway Grade Checker</a> — grade &amp; change-of-grade vs AS/NZS 2890.1 limits</li>
+  <li><a href="../calc-cover.html">Pipe Cover Checker</a> — cover from surface &amp; invert RL vs minimum</li>
 </ul>
 
 <!-- ── NATIONAL RESOURCES (all states) ── -->
-<h2>National resources</h2>
-<p class="lead">Australia-wide references that apply in every state.</p>
+<h2>Australia-wide resources</h2>
+<p class="lead">These apply in NSW and every other state.</p>
 <ul>
   <li><a href="https://www.byda.com.au" target="_blank" rel="noopener">Before You Dig Australia (BYDA)</a> — free underground &amp; overhead asset plans before excavation</li>
   <li><a href="https://www.standards.org.au" target="_blank" rel="noopener">Standards Australia</a> — Australian Standards (AS / AS&#8203;NZS)</li>
   <li><a href="http://www.bom.gov.au" target="_blank" rel="noopener">Bureau of Meteorology (BoM)</a> — rainfall, IFD design rainfall, weather &amp; climate data</li>
 </ul>
 
+<!-- ── DEMAND SIGNAL ── -->
+<h2>Want NSW sooner?</h2>
+<p class="lead">Tell us which councils and tools you need first and we'll prioritise them. Head to the <a href="../contact.html">Contact</a> page — a one-line message helps shape what we build next.</p>
+
 <footer>
   <div class="disclaimer">
     <strong>Disclaimer:</strong> All calculators and information on this site are provided for reference and checking purposes only. Results must be verified by a qualified engineer before use in any design or construction. This site does not constitute professional engineering advice. Always refer to current Australian Standards, state legislation, and relevant authority requirements.
   </div>
   <div class="footer-links">
-    <a href="about.html">About</a>
+    <a href="../about.html">About</a>
     <span style="color:#ccc">|</span>
-    <a href="privacy.html">Privacy</a>
+    <a href="../privacy.html">Privacy</a>
     <span style="color:#ccc">|</span>
-    <a href="contact.html">Contact</a>
+    <a href="../contact.html">Contact</a>
     <span style="color:#ccc">|</span>
     <a href="https://www.byda.com.au" target="_blank" rel="noopener">BYDA</a>
     <span style="color:#ccc">|</span>

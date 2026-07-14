@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pipe Flow (Manning's) — Aus Civil Hub</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Cdefs%3E%3CclipPath%20id='c'%3E%3Crect%20width='32'%20height='32'%20rx='7'/%3E%3C/clipPath%3E%3C/defs%3E%3Crect%20width='32'%20height='32'%20rx='7'%20fill='%2317406e'/%3E%3Cg%20clip-path='url(%23c)'%3E%3Cpolygon%20points='0,10%2032,8%2032,12%200,14'%20fill='%238ec1f2'/%3E%3Cpolygon%20points='0,14%2032,12%2032,17%200,19'%20fill='%233d80cc'/%3E%3Cpolygon%20points='0,19%2032,17%2032,23%200,25'%20fill='%231a5fb4'/%3E%3C/g%3E%3Ccircle%20cx='16'%20cy='26.5'%20r='3.2'%20fill='none'%20stroke='%238ec1f2'%20stroke-width='2'/%3E%3C/svg%3E" />
+  <style>
+    body { font-family: sans-serif; max-width: 600px; margin: 40px auto; padding: 0 20px; }
+    a { color: #1a5fb4; }
+    .brand { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-size: 14px; font-weight: 600; }
+    .brand svg { display: block; }
+    .brand:hover .brand-name { text-decoration: underline; }
+    h1 { margin-bottom: 4px; }
+    p.sub { color: #666; margin-bottom: 24px; }
+    h2 { margin-top: 32px; margin-bottom: 10px; }
+    table { border-collapse: collapse; width: 100%; margin-bottom: 8px; }
+    td, th { border: 1px solid #ccc; padding: 8px 12px; }
+    th { background: #f0f0f0; text-align: left; width: 40%; }
+    input[type=number] { width: 130px; padding: 4px 8px; font-size: 15px; }
+    select { padding: 4px 8px; font-size: 14px; }
+    .result { font-weight: bold; color: #1a5fb4; }
+    .hint { color: #888; font-size: 12px; }
+    hr { border: none; border-top: 1px solid #ddd; margin: 32px 0; }
+    .note { background: #f8f8f8; border: 1px solid #ddd; padding: 12px; font-size: 13px; margin-top: 24px; }
+    .note h3 { margin: 0 0 6px; font-size: 13px; }
+    .refs { font-size: 12px; color: #666; margin-top: 16px; line-height: 1.5; }
+    .refs h3 { font-size: 12px; margin: 0 0 4px; color: #444; }
+    .share-row { margin: 4px 0 0; }
+    .share-row button { padding: 5px 14px; font-size: 13px; cursor: pointer; background: #f0f0f0; border: 1px solid #bbb; border-radius: 3px; color: #333; }
+    .share-row button:hover { background: #e6e6e6; }
+    .share-msg { color: #2e7d32; font-size: 12px; margin-left: 8px; }
+    #share-url { width: 100%; margin-top: 6px; padding: 4px 8px; font-size: 12px; box-sizing: border-box; }
+    footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid #ccc; font-size: 13px; }
+    footer .footer-links { display: flex; gap: 16px; flex-wrap: wrap; }
+    footer .footer-links a { color: #555; }
+  </style>
+</head>
+<body>
+
+<p><a class="brand" href="index.html" title="Back to Hub"><svg width="20" height="20" viewBox="0 0 32 32" aria-hidden="true"><defs><clipPath id="hublogo-clip"><rect width="32" height="32" rx="7"/></clipPath></defs><rect width="32" height="32" rx="7" fill="#17406e"/><g clip-path="url(#hublogo-clip)"><polygon points="0,10 32,8 32,12 0,14" fill="#8ec1f2"/><polygon points="0,14 32,12 32,17 0,19" fill="#3d80cc"/><polygon points="0,19 32,17 32,23 0,25" fill="#1a5fb4"/></g><circle cx="16" cy="26.5" r="3.2" fill="none" stroke="#8ec1f2" stroke-width="2"/></svg><span class="brand-name">← Aus Civil Hub</span></a></p>
+
+<h1>Pipe Flow (Manning's)</h1>
+<p class="sub">Full-bore (flowing full) capacity of a circular pipe running under gravity.</p>
+
+<h2>Inputs</h2>
+<table>
+  <tr>
+    <th>Pipe diameter (D)</th>
+    <td>
+      <input type="number" id="dia" placeholder="e.g. 300" step="any" min="0" />
+      <select id="dia-unit">
+        <option value="mm" selected>mm</option>
+        <option value="m">m</option>
+      </select>
+      <div class="hint">Internal diameter</div>
+    </td>
+  </tr>
+  <tr>
+    <th>Manning's n</th>
+    <td>
+      <select id="n-preset">
+        <option value="0.013">Concrete (0.013)</option>
+        <option value="0.011">uPVC / smooth plastic (0.011)</option>
+        <option value="0.011b">HDPE, smooth wall (0.011)</option>
+        <option value="0.024">Corrugated HDPE (0.024)</option>
+        <option value="0.024b">Corrugated metal (0.024)</option>
+        <option value="0.015">Vitrified clay (0.015)</option>
+        <option value="0.014">Cast / ductile iron (0.014)</option>
+        <option value="custom">Custom…</option>
+      </select>
+      <input type="number" id="n-val" value="0.013" step="any" min="0" style="width:90px" readonly />
+      <div class="hint">Pick a material or choose Custom to type a value</div>
+    </td>
+  </tr>
+  <tr>
+    <th>Slope (S)</th>
+    <td>
+      <select id="slope-mode">
+        <option value="pct" selected>Percentage (%)</option>
+        <option value="ratio">Ratio (1 in X)</option>
+      </select>
+      <span id="ratio-prefix" style="display:none">1 in </span>
+      <input type="number" id="slope" placeholder="e.g. 1" step="any" min="0" style="width:100px" />
+      <span id="pct-suffix">%</span>
+      <div class="hint">Longitudinal grade of the pipe</div>
+    </td>
+  </tr>
+</table>
+
+<hr />
+
+<h2>Results</h2>
+<table>
+  <tr><th>Full-bore velocity (V)</th> <td class="result" id="r-v">—</td></tr>
+  <tr><th>Full-bore flow (Q)</th>     <td class="result" id="r-q">—</td></tr>
+  <tr><th>Flow area (A)</th>          <td id="r-a">—</td></tr>
+  <tr><th>Hydraulic radius (R)</th>   <td id="r-r">—</td></tr>
+</table>
+
+<div class="share-row">
+  <button type="button" id="share-btn" title="Copy a link that restores these inputs">Copy link</button>
+  <span class="share-msg" id="share-msg"></span>
+  <input type="text" id="share-url" readonly style="display:none" aria-label="Shareable link" />
+</div>
+
+<div class="note">
+  <h3>Full-bore capacity only</h3>
+  Manning's equation: <strong>Q = (1/n) · A · R<sup>2/3</sup> · S<sup>1/2</sup></strong>, with V = Q/A.
+  For a circular pipe flowing <strong>just full</strong>: A = πD²/4 and R = D/4.
+  This gives the pipe's full-bore capacity — it does <strong>not</strong> model part-full flow
+  (peak capacity for a circular pipe actually occurs at about 94% depth). Use it as a capacity
+  check only. For reference and checking only — verify with a qualified engineer.
+</div>
+
+<div class="refs">
+  <h3>References</h3>
+  Manning's formula (SI form), e.g. Chadwick, Morfett &amp; Borthwick, <em>Hydraulics in Civil and Environmental Engineering</em>; and Queensland Urban Drainage Manual (QUDM), pipe hydraulics. Typical Manning's <em>n</em> values after Chow, <em>Open-Channel Hydraulics</em> (1959) and FHWA HDS-5 (<em>Hydraulic Design of Highway Culverts</em>). Preset values are chosen towards the <strong>conservative (rougher)</strong> end of the published range so full-bore capacity is not over-estimated: smooth-wall HDPE is taken as 0.011 (FHWA range ≈ 0.009–0.012), cast / ductile iron as 0.014 (new-pipe typical, allowing for service life). Values shown are indicative only — confirm the roughness coefficient appropriate to the pipe material, age and jointing for your design.
+</div>
+
+<script>
+  // ── Core hydraulics (pure, DOM-free) ───────────────────────────────
+  // [CORE-START]
+  // All inputs in SI: D in metres, S as a decimal gradient (m/m), n dimensionless.
+  // Returns null if inputs are invalid.
+  function manningFullBore(D, n, S) {
+    if (!(D > 0) || !(n > 0) || !(S > 0)) return null;
+    var A = Math.PI * D * D / 4;   // full-bore area
+    var R = D / 4;                 // hydraulic radius = (πD²/4)/(πD)
+    var V = (1 / n) * Math.pow(R, 2 / 3) * Math.sqrt(S);
+    var Q = V * A;
+    return { A: A, R: R, V: V, Q: Q };
+  }
+  // [CORE-END]
+
+  const diaI     = document.getElementById('dia');
+  const diaUnit  = document.getElementById('dia-unit');
+  const nPreset  = document.getElementById('n-preset');
+  const nVal     = document.getElementById('n-val');
+  const modeSel  = document.getElementById('slope-mode');
+  const slopeI   = document.getElementById('slope');
+  const vOut     = document.getElementById('r-v');
+  const qOut     = document.getElementById('r-q');
+  const aOut     = document.getElementById('r-a');
+  const rOut     = document.getElementById('r-r');
+
+  function fmt(n, dp) {
+    if (!isFinite(n) || isNaN(n)) return '—';
+    return n.toFixed(dp);
+  }
+
+  // Diameter as metres, or null
+  function getDiameterM() {
+    const v = parseFloat(diaI.value);
+    if (isNaN(v) || !isFinite(v) || v <= 0) return null;
+    return diaUnit.value === 'mm' ? v / 1000 : v;
+  }
+
+  // Slope as a decimal gradient, or null
+  function getSlope() {
+    const v = parseFloat(slopeI.value);
+    if (isNaN(v) || !isFinite(v) || v <= 0) return null;
+    if (modeSel.value === 'pct') return v / 100;
+    return 1 / v;                     // 1 in X
+  }
+
+  function getN() {
+    const v = parseFloat(nVal.value);
+    return (isNaN(v) || !isFinite(v) || v <= 0) ? null : v;
+  }
+
+  function onPresetChange() {
+    if (nPreset.value === 'custom') {
+      nVal.readOnly = false;
+      nVal.focus();
+      nVal.select();
+    } else {
+      nVal.readOnly = true;
+      nVal.value = parseFloat(nPreset.value).toString();   // '0.024b' -> 0.024
+    }
+    recalc();
+  }
+
+  function onModeChange() {
+    const ratio = modeSel.value === 'ratio';
+    document.getElementById('ratio-prefix').style.display = ratio ? '' : 'none';
+    document.getElementById('pct-suffix').style.display   = ratio ? 'none' : '';
+    slopeI.placeholder = ratio ? 'e.g. 100' : 'e.g. 1';
+    recalc();
+  }
+
+  function recalc() {
+    const D = getDiameterM();
+    const n = getN();
+    const S = getSlope();
+    const res = (D !== null && n !== null && S !== null) ? manningFullBore(D, n, S) : null;
+
+    if (!res) {
+      vOut.textContent = qOut.textContent = aOut.textContent = rOut.textContent = '—';
+      return;
+    }
+    vOut.textContent = fmt(res.V, 3) + ' m/s';
+    qOut.textContent = fmt(res.Q, 4) + ' m³/s  (' + fmt(res.Q * 1000, 2) + ' L/s)';
+    aOut.textContent = fmt(res.A, 5) + ' m²';
+    rOut.textContent = fmt(res.R, 4) + ' m';
+  }
+
+  diaI.addEventListener('input', recalc);
+  diaUnit.addEventListener('change', recalc);
+  nPreset.addEventListener('change', onPresetChange);
+  nVal.addEventListener('input', recalc);
+  slopeI.addEventListener('input', recalc);
+  modeSel.addEventListener('change', onModeChange);
+
+  // ── Share link (URL query parameters) ─────────────────────────────
+  const shareBtn = document.getElementById('share-btn');
+  const shareMsg = document.getElementById('share-msg');
+  const shareBox = document.getElementById('share-url');
+  let shareMsgTimer = null;
+
+  function pageURL() { return location.href.split('#')[0].split('?')[0]; }
+
+  function buildShareURL() {
+    if (getDiameterM() === null || getSlope() === null || getN() === null) return null;
+    const p = new URLSearchParams();
+    p.set('d', diaI.value);
+    p.set('dunit', diaUnit.value);
+    p.set('n', nVal.value);
+    p.set('mode', modeSel.value);
+    p.set('slope', slopeI.value);
+    return pageURL() + '?' + p.toString();
+  }
+
+  function showShareMsg(text) {
+    shareMsg.textContent = text;
+    clearTimeout(shareMsgTimer);
+    shareMsgTimer = setTimeout(() => { shareMsg.textContent = ''; }, 2500);
+  }
+
+  function shareFallback(url) {
+    shareBox.style.display = '';
+    shareBox.value = url;
+    shareBox.focus();
+    shareBox.select();
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) {}
+    showShareMsg(ok ? 'Copied!' : 'Press Ctrl+C to copy');
+  }
+
+  shareBtn.addEventListener('click', () => {
+    const url = buildShareURL();
+    if (!url) { showShareMsg('Enter diameter, n and slope first'); return; }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url)
+        .then(() => { shareBox.style.display = 'none'; showShareMsg('Copied!'); })
+        .catch(() => shareFallback(url));
+    } else {
+      shareFallback(url);
+    }
+  });
+
+  // Restore inputs from URL parameters and recalculate
+  (function restoreFromURL() {
+    const p = new URLSearchParams(location.search);
+    if (![...p.keys()].length) { onModeChange(); return; }
+    if (p.has('d'))     diaI.value    = p.get('d');
+    if (p.get('dunit') === 'mm' || p.get('dunit') === 'm') diaUnit.value = p.get('dunit');
+    if (p.has('n')) {
+      nVal.value = p.get('n');
+      nPreset.value = 'custom';
+      nVal.readOnly = false;
+    }
+    if (p.get('mode') === 'ratio' || p.get('mode') === 'pct') modeSel.value = p.get('mode');
+    if (p.has('slope')) slopeI.value = p.get('slope');
+    onModeChange();   // syncs the % / 1-in-X label and recalculates
+  })();
+</script>
+
+<footer>
+  <div class="footer-links">
+    <a href="about.html">About</a>
+    <span style="color:#ccc">|</span>
+    <a href="privacy.html">Privacy</a>
+    <span style="color:#ccc">|</span>
+    <a href="contact.html">Contact</a>
+  </div>
+</footer>
+
+</body>
+</html>
