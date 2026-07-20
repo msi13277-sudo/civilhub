@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>QLD Public Holidays 2026–2027 — Aus Civil Hub</title>
+  <title>NSW Public Holidays 2026–2027 — Aus Civil Hub</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Cdefs%3E%3CclipPath%20id='c'%3E%3Crect%20width='32'%20height='32'%20rx='7'/%3E%3C/clipPath%3E%3C/defs%3E%3Crect%20width='32'%20height='32'%20rx='7'%20fill='%2317406e'/%3E%3Cg%20clip-path='url(%23c)'%3E%3Cpolygon%20points='0,10%2032,8%2032,12%200,14'%20fill='%238ec1f2'/%3E%3Cpolygon%20points='0,14%2032,12%2032,17%200,19'%20fill='%233d80cc'/%3E%3Cpolygon%20points='0,19%2032,17%2032,23%200,25'%20fill='%231a5fb4'/%3E%3C/g%3E%3Ccircle%20cx='16'%20cy='26.5'%20r='3.2'%20fill='none'%20stroke='%238ec1f2'%20stroke-width='2'/%3E%3C/svg%3E" />
   <style>
     body { font-family: sans-serif; max-width: 650px; margin: 40px auto; padding: 0 20px; }
@@ -32,10 +32,10 @@
 </head>
 <body>
 
-<p><a class="brand" href="index.html" title="Back to Queensland hub"><svg width="20" height="20" viewBox="0 0 32 32" aria-hidden="true"><defs><clipPath id="hublogo-clip"><rect width="32" height="32" rx="7"/></clipPath></defs><rect width="32" height="32" rx="7" fill="#17406e"/><g clip-path="url(#hublogo-clip)"><polygon points="0,10 32,8 32,12 0,14" fill="#8ec1f2"/><polygon points="0,14 32,12 32,17 0,19" fill="#3d80cc"/><polygon points="0,19 32,17 32,23 0,25" fill="#1a5fb4"/></g><circle cx="16" cy="26.5" r="3.2" fill="none" stroke="#8ec1f2" stroke-width="2"/></svg><span class="brand-name">← Queensland hub</span></a></p>
+<p><a class="brand" href="index.html" title="Back to New South Wales hub"><svg width="20" height="20" viewBox="0 0 32 32" aria-hidden="true"><defs><clipPath id="hublogo-clip"><rect width="32" height="32" rx="7"/></clipPath></defs><rect width="32" height="32" rx="7" fill="#17406e"/><g clip-path="url(#hublogo-clip)"><polygon points="0,10 32,8 32,12 0,14" fill="#8ec1f2"/><polygon points="0,14 32,12 32,17 0,19" fill="#3d80cc"/><polygon points="0,19 32,17 32,23 0,25" fill="#1a5fb4"/></g><circle cx="16" cy="26.5" r="3.2" fill="none" stroke="#8ec1f2" stroke-width="2"/></svg><span class="brand-name">← New South Wales hub</span></a></p>
 
-<h1>QLD Public Holidays</h1>
-<p class="sub">Queensland public holidays for 2026 and 2027, as gazetted by the Queensland Government.</p>
+<h1>NSW Public Holidays</h1>
+<p class="sub">New South Wales public holidays for 2026 and 2027, as declared by the NSW Government.</p>
 
 <div class="upcoming" id="upcoming" style="display:none"></div>
 
@@ -56,30 +56,31 @@
 </table>
 
 <div class="note">
-  <strong>Royal Queensland Show (Ekka):</strong> this holiday applies to the <strong>Brisbane local government area only</strong>. Other QLD regions observe their own local show holiday on different dates — check your local council or the source below.<br />
-  <strong>Christmas Eve</strong> is a part-day public holiday (6pm to midnight).<br />
-  Under the <em>Holidays Act 1983</em> (Qld), an additional public holiday applies when Christmas Day, Boxing Day or New Year's Day falls on a weekend.<br /><br />
-  Source: <a href="https://www.qld.gov.au/recreation/travel/holidays/public" target="_blank" rel="noopener">Queensland Government — Queensland public holidays</a> (checked 12 July 2026). Dates can change by gazette notice — always confirm with the official source before planning work programs or contract dates.
+  <strong>No statewide local holidays:</strong> unlike Queensland, NSW has no statewide local show-day public holidays — the dates above apply across the whole state.<br />
+  <strong>Bank Holiday</strong> — <strong>Monday 3 August 2026</strong> and <strong>Monday 2 August 2027</strong> — is <strong>not a general public holiday</strong>. It applies mainly to banks and some financial institutions, so it is listed here as a note rather than in the tables above.<br />
+  Under the <em>Public Holidays Act 2010</em> (NSW), an additional public holiday is generally proclaimed when Anzac Day, Christmas Day, Boxing Day, Australia Day or New Year's Day falls on a weekend.<br /><br />
+  Source: <a href="https://www.nsw.gov.au/about-nsw/public-holidays" target="_blank" rel="noopener">NSW Government — NSW public holidays</a> (checked 20 July 2026). Dates can change by proclamation — always confirm with the official source before planning work programs or contract dates.
 </div>
 
 <script>
-  // Data transcribed from the Queensland Government official page
-  // (www.qld.gov.au/recreation/travel/holidays/public), checked 12 July 2026.
+  // Data transcribed from the NSW Government official page
+  // (www.nsw.gov.au/about-nsw/public-holidays), checked 20 July 2026.
   // 'day' is kept alongside the date as a transcription cross-check.
+  // Bank Holiday (early Aug) is intentionally NOT included below — it is not a
+  // general public holiday and is documented in the note on the page instead.
   // [DATA-START]
   var HOLIDAYS = {
     2026: [
       { d: '2026-01-01', day: 'Thu', n: "New Year's Day" },
       { d: '2026-01-26', day: 'Mon', n: 'Australia Day' },
       { d: '2026-04-03', day: 'Fri', n: 'Good Friday' },
-      { d: '2026-04-04', day: 'Sat', n: 'The day after Good Friday' },
+      { d: '2026-04-04', day: 'Sat', n: 'Easter Saturday' },
       { d: '2026-04-05', day: 'Sun', n: 'Easter Sunday' },
       { d: '2026-04-06', day: 'Mon', n: 'Easter Monday' },
       { d: '2026-04-25', day: 'Sat', n: 'Anzac Day' },
-      { d: '2026-05-04', day: 'Mon', n: 'Labour Day' },
-      { d: '2026-08-12', day: 'Wed', n: 'Royal Queensland Show (Ekka)', note: 'Brisbane area only' },
-      { d: '2026-10-05', day: 'Mon', n: "King's Birthday" },
-      { d: '2026-12-24', day: 'Thu', n: 'Christmas Eve', note: 'part-day: 6pm to midnight' },
+      { d: '2026-04-27', day: 'Mon', n: 'Anzac Day — additional public holiday', note: 'Anzac Day falls on a Saturday' },
+      { d: '2026-06-08', day: 'Mon', n: "King's Birthday" },
+      { d: '2026-10-05', day: 'Mon', n: 'Labour Day' },
       { d: '2026-12-25', day: 'Fri', n: 'Christmas Day' },
       { d: '2026-12-26', day: 'Sat', n: 'Boxing Day' },
       { d: '2026-12-28', day: 'Mon', n: 'Boxing Day — additional public holiday', note: 'Boxing Day falls on a Saturday' }
@@ -88,14 +89,13 @@
       { d: '2027-01-01', day: 'Fri', n: "New Year's Day" },
       { d: '2027-01-26', day: 'Tue', n: 'Australia Day' },
       { d: '2027-03-26', day: 'Fri', n: 'Good Friday' },
-      { d: '2027-03-27', day: 'Sat', n: 'The day after Good Friday' },
+      { d: '2027-03-27', day: 'Sat', n: 'Easter Saturday' },
       { d: '2027-03-28', day: 'Sun', n: 'Easter Sunday' },
       { d: '2027-03-29', day: 'Mon', n: 'Easter Monday' },
-      { d: '2027-04-26', day: 'Mon', n: 'Anzac Day', note: '25 April falls on a Sunday — holiday observed Monday' },
-      { d: '2027-05-03', day: 'Mon', n: 'Labour Day' },
-      { d: '2027-08-11', day: 'Wed', n: 'Royal Queensland Show (Ekka)', note: 'Brisbane area only' },
-      { d: '2027-10-04', day: 'Mon', n: "King's Birthday" },
-      { d: '2027-12-24', day: 'Fri', n: 'Christmas Eve', note: 'part-day: 6pm to midnight' },
+      { d: '2027-04-25', day: 'Sun', n: 'Anzac Day' },
+      { d: '2027-04-26', day: 'Mon', n: 'Anzac Day — additional public holiday', note: 'Anzac Day falls on a Sunday' },
+      { d: '2027-06-14', day: 'Mon', n: "King's Birthday" },
+      { d: '2027-10-04', day: 'Mon', n: 'Labour Day' },
       { d: '2027-12-25', day: 'Sat', n: 'Christmas Day' },
       { d: '2027-12-26', day: 'Sun', n: 'Boxing Day' },
       { d: '2027-12-27', day: 'Mon', n: 'Christmas Day — additional public holiday', note: 'Christmas Day falls on a Saturday' },
