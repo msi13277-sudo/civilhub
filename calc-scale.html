@@ -41,6 +41,14 @@
     }
     .presets button.active { background: #1a5fb4; color: #fff; border-color: #1a5fb4; }
     .note { background: #f8f8f8; border: 1px solid #ddd; padding: 12px; font-size: 13px; margin-top: 24px; }
+    .explainer { margin-top: 44px; }
+    .explainer h2 { font-size: 19px; margin: 30px 0 8px; }
+    .explainer h3 { font-size: 15px; margin: 22px 0 6px; }
+    .explainer p { line-height: 1.6; }
+    .explainer ul, .explainer ol { line-height: 1.6; padding-left: 20px; }
+    .explainer table { margin: 14px 0 22px; }
+    .explainer th { width: auto; }
+    .explainer td, .explainer th { font-size: 13px; padding: 6px 10px; }
     .share-row { margin: 4px 0 0; }
     .share-row button { padding: 5px 14px; font-size: 13px; cursor: pointer; background: #f0f0f0; border: 1px solid #bbb; border-radius: 3px; color: #333; }
     .share-row button:hover { background: #e6e6e6; }
@@ -116,6 +124,52 @@
 <div class="note">
   <strong>Common QLD scales:</strong> 1:50 / 1:100 details · 1:200 site plans · 1:500 subdivision · 1:1000 precinct · 1:25000 cadastral. Always verify against the title block — printing to non-standard paper sizes will distort the scale.
 </div>
+
+<section class="explainer">
+  <h2>Why a drawing scale converter is a daily tool for drafters</h2>
+  <p>Every civil drawing is a scaled representation of the real world, and drafters, designers and site staff constantly need to move between the two: "the pit is 45 mm from the boundary on this 1:250 plan — how far is that on the ground?" or "I need this detail to fit a 180 mm wide column at 1:20 — how big can the real feature be?" A drawing <strong>scale</strong> of 1:250 means one unit on the paper equals 250 of the same units in reality — 1 mm on the sheet is 250 mm on site, so 1 mm on paper is 0.25 m on the ground. This converter handles both directions (drawing → real world and real world → drawing) so you do not have to keep multiplying and dividing by the scale factor in your head.</p>
+
+  <h3>How drawing scale notation works</h3>
+  <p>Scale is written as a ratio <strong>1 : N</strong>, where N is the scale factor. The larger N is, the smaller and more "zoomed out" the drawing:</p>
+  <ul>
+    <li><strong>1:20, 1:50</strong> — large scale, used for details and cross-sections where you need to see millimetres.</li>
+    <li><strong>1:100, 1:200</strong> — site and layout plans.</li>
+    <li><strong>1:500, 1:1000</strong> — subdivision and precinct plans.</li>
+    <li><strong>1:2000 and smaller</strong> — locality and cadastral plans.</li>
+  </ul>
+  <p>The maths is simple in both directions. Drawing to real world: real = drawing measurement × N. Real world to drawing: drawing = real measurement ÷ N. The only thing you must keep consistent is units — measure the paper in millimetres, convert your answer to metres or kilometres as needed. This tool does that unit-stepping for you.</p>
+
+  <h3>Common Australian civil drawing scales</h3>
+  <table>
+    <thead><tr><th>Scale</th><th>Typical use</th></tr></thead>
+    <tbody>
+      <tr><td>1:20 / 1:25</td><td>Structural and drainage details, pit sections</td></tr>
+      <tr><td>1:50 / 1:100</td><td>Details, small-lot layout plans</td></tr>
+      <tr><td>1:200</td><td>Site plans, sediment/erosion control</td></tr>
+      <tr><td>1:500</td><td>Subdivision layout, road plans</td></tr>
+      <tr><td>1:1000</td><td>Precinct and catchment plans</td></tr>
+      <tr><td>1:2000+</td><td>Locality plans, cadastral context</td></tr>
+    </tbody>
+  </table>
+  <p>These are conventions, not rules — always read the actual scale from the drawing's title block or scale bar rather than assuming.</p>
+
+  <h3>Worked examples</h3>
+  <ol>
+    <li><strong>Scaling off a site plan.</strong> On a 1:500 subdivision plan a proposed pipe measures 38 mm on the sheet. Real length = 38 × 500 = 19 000 mm = 19.0 m.</li>
+    <li><strong>Sizing a detail.</strong> You are drawing a 1:20 pit detail and the sheet space allows 250 mm of width. Maximum real feature that fits = 250 × 20 = 5 000 mm = 5.0 m.</li>
+    <li><strong>Cross-checking a dimension.</strong> A drawing is labelled 1:200 and a wall is dimensioned 6.0 m. It should measure 6000 ÷ 200 = 30 mm on the paper. If your ruler reads 27 mm, the sheet has been printed out of scale — do not trust scaled dimensions on it.</li>
+  </ol>
+
+  <h3>Common mistakes</h3>
+  <ul>
+    <li><strong>Scaling off a PDF or a resized print.</strong> This is the biggest one. The moment a drawing is printed "fit to page", emailed as a resized PDF, or photocopied, the scale is no longer reliable. <strong>Always work to figured (written) dimensions; only scale as a last resort, and verify against the scale bar.</strong> A drawing note to this effect ("Do not scale — use figured dimensions") appears on most civil sheets for exactly this reason.</li>
+    <li><strong>Mixing paper sizes.</strong> A drawing set up at 1:100 on A1 becomes effectively 1:200 when printed on A3 at "half size". Check whether the sheet you are holding is full size or reduced.</li>
+    <li><strong>Unit slips.</strong> Forgetting that the paper measurement is in millimetres while the answer is wanted in metres. 1:1000 means 1 mm = 1 m, which is an easy sanity check.</li>
+  </ul>
+
+  <h3>Related standards and references</h3>
+  <p>Sheet sizes, scales and title-block requirements in Australia follow AS 1100.101 <em>Technical drawing — General principles</em> and the CAD/drafting standards of the relevant authority (for example Department of Transport and Main Roads and council drafting standards in QLD, and Transport for NSW drafting standards). Always confirm the plotted scale against the title block and the printed scale bar before taking any measurement off a drawing.</p>
+</section>
 
 <script>
   let scale = 250;

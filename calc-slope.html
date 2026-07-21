@@ -32,6 +32,14 @@
     th { background: #f0f0f0; text-align: left; }
     input[type=number] { width: 160px; padding: 4px 8px; font-size: 15px; }
     .note { background: #f8f8f8; border: 1px solid #ddd; padding: 12px; font-size: 13px; margin-top: 24px; }
+    .explainer { margin-top: 44px; }
+    .explainer h2 { font-size: 19px; margin: 30px 0 8px; }
+    .explainer h3 { font-size: 15px; margin: 22px 0 6px; }
+    .explainer p { line-height: 1.6; }
+    .explainer ul, .explainer ol { line-height: 1.6; padding-left: 20px; }
+    .explainer table { margin: 14px 0 22px; }
+    .explainer th { width: auto; }
+    .explainer td, .explainer th { font-size: 13px; padding: 6px 10px; }
     .share-row { margin: 4px 0 0; }
     .share-row button { padding: 5px 14px; font-size: 13px; cursor: pointer; background: #f0f0f0; border: 1px solid #bbb; border-radius: 3px; color: #333; }
     .share-row button:hover { background: #e6e6e6; }
@@ -85,6 +93,68 @@
 <div class="note">
   <strong>Convention:</strong> In QLD civil engineering, slopes are typically written as <strong>1 in X</strong> (e.g. 1 in 50 = 2%). Roads and drainage use %. Degrees are common in geotechnical work.
 </div>
+
+<section class="explainer">
+  <h2>Why slope gets written three different ways on the same job</h2>
+  <p>Slope is one of the few quantities in Australian civil engineering that is routinely expressed three different ways on the same set of drawings — as a <strong>ratio (1 in X)</strong>, as a <strong>percentage (%)</strong>, and as an <strong>angle in degrees (°)</strong> — and drafters are expected to move between them without thinking. A longitudinal road grade might be called up as 6%, the crossfall on the same carriageway as 1 in 40 (2.5%), a table drain batter as 1 in 6, and a cut batter in the geotechnical report as 34°. They all describe the same underlying idea — vertical rise divided by horizontal run — but the convention shifts by discipline. This converter exists so you can move between all four representations (ratio, percent, degrees, and rise/run) instantly while you are reading or checking a drawing, without opening a spreadsheet.</p>
+
+  <h3>What "1 in X", "%", and degrees actually mean</h3>
+  <p>The three formats are just different ways of writing rise over run:</p>
+  <ul>
+    <li><strong>Ratio (1 in X)</strong> means one unit of vertical rise for every X units of horizontal run. 1 in 20 means 1 m up for every 20 m along. Smaller X = steeper.</li>
+    <li><strong>Percentage (%)</strong> is rise ÷ run × 100. So 1 in 20 = 5%.</li>
+    <li><strong>Degrees (°)</strong> is the angle the surface makes with horizontal, calculated as arctan(rise ÷ run). 1 in 20 works out to about 2.862°.</li>
+  </ul>
+  <p>A common trap: percentage grade is <strong>not</strong> the same as the angle in degrees. A 100% grade is 45°, not 90° — because 100% means rise equals run (1 in 1). People who assume "100% = vertical" get slopes badly wrong. For the shallow grades civil work usually deals with (under about 10%), the percentage and the degree value happen to be numerically close, which lulls people into treating them as interchangeable — they are not, and the gap widens fast as slopes steepen.</p>
+
+  <h3>Which convention is used where (Australian practice)</h3>
+  <table>
+    <thead><tr><th>Application</th><th>Convention normally used</th><th>Typical values</th></tr></thead>
+    <tbody>
+      <tr><td>Road longitudinal grade</td><td>Percentage (%)</td><td>0.5%–8%+</td></tr>
+      <tr><td>Road / pavement crossfall</td><td>Percentage or 1 in X</td><td>2.5% (1 in 40), 3%</td></tr>
+      <tr><td>Stormwater &amp; sewer pipe grade</td><td>1 in X</td><td>1 in 100, 1 in 200 (typical)</td></tr>
+      <tr><td>Table drains &amp; swales</td><td>1 in X</td><td>1 in 4 to 1 in 6 batters</td></tr>
+      <tr><td>Earthworks batters (cut/fill)</td><td>1 in X or degrees</td><td>1 in 2, 1 in 3</td></tr>
+      <tr><td>Geotechnical (slope stability)</td><td>Degrees (°)</td><td>angle of repose etc.</td></tr>
+      <tr><td>Accessible ramps (AS 1428.1)</td><td>1 in X</td><td>1 in 14 max ramp gradient</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Handy conversion table</h3>
+  <table>
+    <thead><tr><th>Ratio</th><th>Percent</th><th>Degrees (approx)</th></tr></thead>
+    <tbody>
+      <tr><td>1 in 4</td><td>25%</td><td>14.04°</td></tr>
+      <tr><td>1 in 8</td><td>12.5%</td><td>7.13°</td></tr>
+      <tr><td>1 in 10</td><td>10%</td><td>5.71°</td></tr>
+      <tr><td>1 in 14</td><td>7.14%</td><td>4.09°</td></tr>
+      <tr><td>1 in 20</td><td>5%</td><td>2.86°</td></tr>
+      <tr><td>1 in 40</td><td>2.5%</td><td>1.43°</td></tr>
+      <tr><td>1 in 50</td><td>2%</td><td>1.15°</td></tr>
+      <tr><td>1 in 100</td><td>1%</td><td>0.57°</td></tr>
+      <tr><td>1 in 200</td><td>0.5%</td><td>0.29°</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Worked examples</h3>
+  <ol>
+    <li><strong>Reading a road grade.</strong> A design plan shows a 6% longitudinal grade over a 150 m chainage. That is 1 in 16.7, and it will fall 9.0 m over that length (150 × 0.06). If a reviewer asks "what's that in degrees?", it is about 3.43°.</li>
+    <li><strong>Checking a pipe against a drainage table.</strong> A stormwater line is drawn at 1 in 150. Your drainage standard quotes minimum grades as a percentage — 1 in 150 is 0.667%, so you can compare it directly against the tabulated minimum.</li>
+    <li><strong>Batter callout.</strong> A cut batter noted as 1 in 3 is 33.3%, or about 18.4°. If the geotech report gives a maximum stable angle in degrees, converting the drawn batter to degrees lets you check it in a single step.</li>
+  </ol>
+
+  <h3>Common mistakes</h3>
+  <ul>
+    <li><strong>Confusing 1 in X with X%.</strong> 1 in 20 is 5%, not 20%. The ratio and the percentage are inverses-of-sorts, and mixing them up is the single most common slope error on shop drawings.</li>
+    <li><strong>Assuming % equals degrees.</strong> Fine for very flat grades, wrong for anything steep (see 45° = 100% above).</li>
+    <li><strong>Dropping the direction.</strong> A converter gives magnitude only. On a real drawing, a +3% and a −3% grade meeting at a crest is a 6% change of grade — sign matters for vertical curves and driveway transitions.</li>
+    <li><strong>Rounding too early.</strong> Converting 1 in 20 to "2.9°" then back can drift. Keep the ratio or percent as the source value and treat degrees as derived.</li>
+  </ul>
+
+  <h3>Related standards and references</h3>
+  <p>Slope conventions appear throughout Australian civil documents: Austroads <em>Guide to Road Design</em> (grades and crossfalls as %), the Queensland Urban Drainage Manual (QUDM) and council standard drawings (pipe grades as 1 in X), and AS 1428.1 for accessible ramp gradients. Angle-of-repose and batter stability values in degrees come from the project geotechnical report. This tool is a units converter only — always design to the figure and convention called up by the relevant standard and the local council.</p>
+</section>
 
 <script>
   const pctI   = document.getElementById('pct');

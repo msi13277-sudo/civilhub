@@ -40,6 +40,14 @@
     .note h3 { margin: 0 0 6px; font-size: 13px; }
     .refs { font-size: 12px; color: #666; margin-top: 16px; line-height: 1.5; }
     .refs h3 { font-size: 12px; margin: 0 0 4px; color: #444; }
+    .explainer { margin-top: 44px; }
+    .explainer h2 { font-size: 19px; margin: 30px 0 8px; }
+    .explainer h3 { font-size: 15px; margin: 22px 0 6px; }
+    .explainer p { line-height: 1.6; }
+    .explainer ul, .explainer ol { line-height: 1.6; padding-left: 20px; }
+    .explainer table { margin: 14px 0 22px; }
+    .explainer th { width: auto; }
+    .explainer td, .explainer th { font-size: 13px; padding: 6px 10px; }
     .share-row { margin: 4px 0 0; }
     .share-row button { padding: 5px 14px; font-size: 13px; cursor: pointer; background: #f0f0f0; border: 1px solid #bbb; border-radius: 3px; color: #333; }
     .share-row button:hover { background: #e6e6e6; }
@@ -131,6 +139,59 @@
   <h3>References</h3>
   Manning's formula (SI form), e.g. Chadwick, Morfett &amp; Borthwick, <em>Hydraulics in Civil and Environmental Engineering</em>; and Queensland Urban Drainage Manual (QUDM), pipe hydraulics. Typical Manning's <em>n</em> values after Chow, <em>Open-Channel Hydraulics</em> (1959) and FHWA HDS-5 (<em>Hydraulic Design of Highway Culverts</em>). Preset values are chosen towards the <strong>conservative (rougher)</strong> end of the published range so full-bore capacity is not over-estimated: smooth-wall HDPE is taken as 0.011 (FHWA range ≈ 0.009–0.012), cast / ductile iron as 0.014 (new-pipe typical, allowing for service life). Values shown are indicative only — confirm the roughness coefficient appropriate to the pipe material, age and jointing for your design.
 </div>
+
+<section class="explainer">
+  <h2>When you reach for Manning's equation</h2>
+  <p>Manning's equation is the workhorse of gravity-flow drainage design. Whenever you need to know how much water a stormwater or sewer pipe can carry under gravity — or whether a proposed pipe size and grade will pass the design flow — you are using Manning's equation, directly or through software. This calculator gives the <strong>full-bore capacity</strong> of a circular pipe: the velocity and flow when the pipe is running exactly full under gravity. It is the fast check drafters and designers reach for when reviewing a drainage layout: "is a 375 mm concrete pipe at 1 in 200 enough for this catchment?"</p>
+
+  <h3>The equation and what the terms mean</h3>
+  <p>In SI (metric) form, Manning's equation is:</p>
+  <p><strong>Q = (1/n) · A · R<sup>2/3</sup> · S<sup>1/2</sup></strong>, with velocity <strong>V = Q/A</strong></p>
+  <p>where:</p>
+  <ul>
+    <li><strong>Q</strong> = flow rate (m³/s),</li>
+    <li><strong>n</strong> = Manning's roughness coefficient (dimensionless) — depends on the pipe material,</li>
+    <li><strong>A</strong> = cross-sectional area of flow (m²) — for a full circular pipe, A = πD²/4,</li>
+    <li><strong>R</strong> = hydraulic radius (m) = area ÷ wetted perimeter — for a full circular pipe this simplifies neatly to R = D/4,</li>
+    <li><strong>S</strong> = longitudinal grade of the pipe as a decimal (m/m) — so 1% = 0.01, 1 in 200 = 0.005.</li>
+  </ul>
+  <p>A key limitation to keep in mind: this is <strong>full-bore</strong> capacity only. It does not model part-full flow, and, counter-intuitively, a circular pipe's peak capacity (with a constant roughness) actually occurs at about 94% depth, not at 100%. Treat the full-bore figure as a capacity check, not a precise operating point.</p>
+
+  <h3>Typical Manning's n values (indicative)</h3>
+  <table>
+    <thead><tr><th>Material</th><th>Manning's n (design)</th></tr></thead>
+    <tbody>
+      <tr><td>Concrete (precast RCP)</td><td>0.013</td></tr>
+      <tr><td>uPVC / smooth-wall plastic</td><td>0.011</td></tr>
+      <tr><td>HDPE, smooth wall</td><td>0.011</td></tr>
+      <tr><td>Corrugated HDPE / metal</td><td>0.024</td></tr>
+      <tr><td>Vitrified clay</td><td>0.015</td></tr>
+      <tr><td>Cast / ductile iron</td><td>0.014</td></tr>
+    </tbody>
+  </table>
+  <p>Note these are <strong>design</strong> values chosen towards the rougher end of published ranges, so that full-bore capacity is not over-estimated. Laboratory values for new, smooth pipes can be lower (finished concrete is often cited around 0.010–0.011), but Australian practice commonly designs to 0.013 for concrete to allow for jointing, ageing and site conditions.</p>
+
+  <h3>Minimum grade and self-cleansing velocity</h3>
+  <p>Capacity is only half the story. Gravity drains also need enough velocity to stop solids settling out — the <strong>self-cleansing velocity</strong>. A commonly cited minimum is around <strong>0.6–0.7 m/s</strong> (the traditional 2 ft/s ≈ 0.61 m/s), which is why standards set minimum pipe grades. Getting a pipe that "has capacity" but runs too slowly at low flows is a classic design miss. Confirm the minimum velocity and minimum grade requirements in the Queensland Urban Drainage Manual (QUDM) and the relevant council/water authority standards for your job.</p>
+
+  <h3>Worked examples</h3>
+  <ol>
+    <li><strong>Capacity check.</strong> A 375 mm concrete pipe (n = 0.013) at 1 in 200 (S = 0.005). Enter these to read the full-bore Q and V, and compare Q against the catchment's design flow (from a rational-method or software estimate). If Q(full) exceeds the design flow, the pipe has spare capacity.</li>
+    <li><strong>Comparing materials.</strong> The same 300 mm pipe at 1 in 150 will carry more flow as smooth-wall uPVC (n = 0.011) than as concrete (n = 0.013), because lower n means higher velocity. The calculator lets you swap the roughness and see the difference.</li>
+    <li><strong>Grade sensitivity.</strong> Halving the grade of a pipe does not halve its capacity — because Q depends on S<sup>1/2</sup>, capacity scales with the square root of grade. Dropping from 1 in 100 to 1 in 200 (halving the grade) reduces full-bore flow by a factor of 1/√2 ≈ 0.71 — to about 71% of the original, not to half.</li>
+  </ol>
+
+  <h3>Common mistakes</h3>
+  <ul>
+    <li><strong>Using a lab n value.</strong> Designing concrete at 0.010 instead of 0.013 overstates capacity by roughly 30%.</li>
+    <li><strong>Feeding the wrong slope form.</strong> S must be a decimal gradient (0.005), not a percent (0.5) or a ratio (200). This tool lets you enter percent or 1-in-X and converts internally — but if you are doing it by hand, unit slips here are common and large.</li>
+    <li><strong>Treating full-bore as design flow.</strong> Sizing a pipe to run exactly full at peak leaves no freeboard and ignores part-full behaviour; most standards want the design flow to sit below full-bore capacity.</li>
+    <li><strong>Ignoring minimum velocity.</strong> A flat, oversized pipe can silt up. Check velocity, not just capacity.</li>
+  </ul>
+
+  <h3>Related standards and references</h3>
+  <p>Queensland Urban Drainage Manual (QUDM) for stormwater and pipe hydraulics; Manning's formula per standard hydraulics texts (e.g. Chow, <em>Open-Channel Hydraulics</em>, 1959); roughness coefficients cross-referenced to FHWA HDS-5. Local water authority and council design standards govern minimum grades, minimum velocities and acceptable n values on any real project — this calculator is a first-pass capacity check only.</p>
+</section>
 
 <script>
   // ── Core hydraulics (pure, DOM-free) ───────────────────────────────

@@ -45,6 +45,14 @@
     .std-table td, .std-table th { font-size: 12px; padding: 5px 8px; }
     .refs { font-size: 12px; color: #666; margin-top: 16px; line-height: 1.5; }
     .refs h3 { font-size: 12px; margin: 0 0 4px; color: #444; }
+    .explainer { margin-top: 44px; }
+    .explainer h2 { font-size: 19px; margin: 30px 0 8px; }
+    .explainer h3 { font-size: 15px; margin: 22px 0 6px; }
+    .explainer p { line-height: 1.6; }
+    .explainer ul, .explainer ol { line-height: 1.6; padding-left: 20px; }
+    .explainer table { margin: 14px 0 22px; }
+    .explainer th { width: auto; }
+    .explainer td, .explainer th { font-size: 13px; padding: 6px 10px; }
     .share-row { margin: 4px 0 0; }
     .share-row button { padding: 5px 14px; font-size: 13px; cursor: pointer; background: #f0f0f0; border: 1px solid #bbb; border-radius: 3px; color: #333; }
     .share-row button:hover { background: #e6e6e6; }
@@ -136,6 +144,42 @@
   (ML Traffic Engineers; Traffic &amp; Parking Australia). This tool does not reproduce the standard — obtain the current
   AS/NZS 2890.1 and the applicable council standard drawings for design use.
 </div>
+
+<section class="explainer">
+  <h2>Why driveway grade is a compliance question, not just a number</h2>
+  <p>A driveway that is too steep — or that changes grade too abruptly — will scrape the underside of a car, be unsafe in the wet, and fail to gain approval. In Australia, domestic driveway gradients are governed by <strong>AS/NZS 2890.1</strong> (parking facilities / off-street car parking), which sets both a maximum grade and limits on how quickly the grade is allowed to change at crests and dips. This checker screens a driveway grade — and, optionally, a change of grade at a break point — against the limits commonly cited from that standard, so you can see early whether a design is likely to pass or need a transition. It answers the everyday question, "is this driveway too steep, and do I need a transition where it flattens out?"</p>
+
+  <h3>Two things matter: maximum grade AND change of grade</h3>
+  <p>Most people think only about the <strong>maximum grade</strong> (how steep the steepest section is). But the second factor — <strong>change of grade</strong> at a break point — is what actually causes vehicles to bottom out. Where a steep ramp meets a flatter section (at the top of a driveway, or in a dip at the gutter), the <em>algebraic difference</em> between the two grades matters. A ramp going from +12% up to −5% down has a change of grade of 17%, even though neither grade on its own is extreme. If that change happens over too short a distance, the car's front or rear overhang, or its belly, grounds out. That is why the standard limits change of grade separately, and why a <strong>transition</strong> (a short intermediate grade) is required where the change is too great.</p>
+  <ul>
+    <li>A <strong>summit / crest</strong> (a hump — grade decreasing) risks grounding the <strong>belly</strong> of the vehicle.</li>
+    <li>A <strong>sag / dip</strong> (a valley — grade increasing) risks scraping the <strong>front and rear overhangs</strong>.</li>
+  </ul>
+
+  <h3>Commonly cited AS/NZS 2890.1 domestic limits</h3>
+  <p>The key figures widely quoted for AS/NZS 2890.1:2004 are summarised in the table near the top of this page: a maximum domestic driveway grade of <strong>1 in 4 (25%)</strong>, a maximum change of grade without a transition of <strong>12.5% at a crest</strong> and <strong>15% at a sag</strong>, and a minimum transition length of about <strong>2.0 m</strong> (often at half the grade change). The standard itself, and the ground-clearance vehicle templates in its appendices, take precedence for any real design — obtain the current standard rather than relying on the summary above.</p>
+
+  <h3>The council overlay: often stricter than the standard</h3>
+  <p>This is the part designers miss. Even where a driveway passes AS/NZS 2890.1, the <strong>local council or authority requirements usually take precedence and are frequently stricter.</strong> Many QLD councils prefer a working maximum closer to <strong>1 in 5 = 20%</strong> and have their own standard drawings for driveway crossovers and vehicular access. A "PASS" against the cited standard is a screening result, not an approval — always check the applicable council standard drawing and planning scheme codes before finalising a crossover or access design.</p>
+
+  <h3>Worked examples</h3>
+  <ol>
+    <li><strong>Steep suburban block.</strong> A driveway is proposed at 22%. That is within the 25% domestic maximum, so it screens as PASS against AS/NZS 2890.1 — but if the council caps grades at 20%, it fails the local requirement. This is exactly why the checker's PASS says "verify against council".</li>
+    <li><strong>Grade change at the garage.</strong> A ramp climbs at +14% then meets a level garage floor (0%). The change of grade is 14% at a summit, which exceeds the ~12.5% crest limit — a transition is required, so the tool returns REVIEW.</li>
+    <li><strong>Dip at the gutter.</strong> A driveway drops to a low point at the kerb and rises into the property: −10% to +8% is an 18% change at a sag, above the ~15% sag limit — again a transition is needed to avoid grounding the front overhang.</li>
+  </ol>
+
+  <h3>Common mistakes</h3>
+  <ul>
+    <li><strong>Checking only the maximum grade.</strong> A driveway can be under 25% everywhere yet still bottom out at a sharp break. Always check change of grade at every break point.</li>
+    <li><strong>Ignoring the sign of the grades.</strong> Change of grade is the algebraic difference. +10% to −5% is 15%, not 5%.</li>
+    <li><strong>Assuming the standard is the whole story.</strong> Council conditions, sight distance at the frontage, and the crossover standard drawing all apply on top of AS/NZS 2890.1.</li>
+    <li><strong>Forgetting the vehicle templates.</strong> The standard's ground-clearance checks (design vehicle templates) are the real test for grounding; a grade-only screen does not replace them.</li>
+  </ul>
+
+  <h3>Related standards and references</h3>
+  <p>AS/NZS 2890.1 <em>Parking facilities — Off-street car parking</em> (domestic driveway gradients and grade-change transitions); the applicable local council / authority standard drawings for vehicular crossovers and access (which frequently govern and are often stricter); and, for the frontage, the relevant road authority requirements. This checker is a screening aid only — it does not reproduce the standard, and a REVIEW result flags that a transition or engineering assessment is likely needed, not that a design is non-compliant.</p>
+</section>
 
 <script>
   // ── Core check logic (pure, DOM-free) ──────────────────────────────
