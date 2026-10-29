@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Unit Converter — Aus Civil Hub</title>
+  <title>Unit Converter — QLD Civil Hub</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Cdefs%3E%3CclipPath%20id='c'%3E%3Crect%20width='32'%20height='32'%20rx='7'/%3E%3C/clipPath%3E%3C/defs%3E%3Crect%20width='32'%20height='32'%20rx='7'%20fill='%2317406e'/%3E%3Cg%20clip-path='url(%23c)'%3E%3Cpolygon%20points='0,10%2032,8%2032,12%200,14'%20fill='%238ec1f2'/%3E%3Cpolygon%20points='0,14%2032,12%2032,17%200,19'%20fill='%233d80cc'/%3E%3Cpolygon%20points='0,19%2032,17%2032,23%200,25'%20fill='%231a5fb4'/%3E%3C/g%3E%3Ccircle%20cx='16'%20cy='26.5'%20r='3.2'%20fill='none'%20stroke='%238ec1f2'%20stroke-width='2'/%3E%3C/svg%3E" />
-  <link rel="canonical" href="https://auscivilhub.com/calc-units.html" />
+  <link rel="canonical" href="https://msi13277-sudo.github.io/civilhub/calc-units.html" />
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Aus Civil Hub" />
-  <meta property="og:url" content="https://auscivilhub.com/calc-units.html" />
+  <meta property="og:site_name" content="QLD Civil Hub" />
+  <meta property="og:url" content="https://msi13277-sudo.github.io/civilhub/calc-units.html" />
   <meta property="og:title" content="Unit Converter" />
-  <meta property="og:description" content="Convert civil engineering units — length, area, volume, flow, mass and pressure / head. Free reference tool from Aus Civil Hub." />
+  <meta property="og:description" content="Convert civil engineering units — length, area, volume, flow, mass, pressure / head and angle (DMS, decimal degrees, radians). Free reference tool from QLD Civil Hub." />
   <!-- Google Analytics 4 (GA4) — TODO: replace G-XXXXXXXXXX with the real Measurement ID from the GA account -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
   <script>
@@ -50,10 +50,10 @@
 </head>
 <body>
 
-<p><a class="brand" href="index.html" title="Back to Hub"><svg width="20" height="20" viewBox="0 0 32 32" aria-hidden="true"><defs><clipPath id="hublogo-clip"><rect width="32" height="32" rx="7"/></clipPath></defs><rect width="32" height="32" rx="7" fill="#17406e"/><g clip-path="url(#hublogo-clip)"><polygon points="0,10 32,8 32,12 0,14" fill="#8ec1f2"/><polygon points="0,14 32,12 32,17 0,19" fill="#3d80cc"/><polygon points="0,19 32,17 32,23 0,25" fill="#1a5fb4"/></g><circle cx="16" cy="26.5" r="3.2" fill="none" stroke="#8ec1f2" stroke-width="2"/></svg><span class="brand-name">← Aus Civil Hub</span></a></p>
+<p><a class="brand" href="index.html" title="Back to Hub"><svg width="20" height="20" viewBox="0 0 32 32" aria-hidden="true"><defs><clipPath id="hublogo-clip"><rect width="32" height="32" rx="7"/></clipPath></defs><rect width="32" height="32" rx="7" fill="#17406e"/><g clip-path="url(#hublogo-clip)"><polygon points="0,10 32,8 32,12 0,14" fill="#8ec1f2"/><polygon points="0,14 32,12 32,17 0,19" fill="#3d80cc"/><polygon points="0,19 32,17 32,23 0,25" fill="#1a5fb4"/></g><circle cx="16" cy="26.5" r="3.2" fill="none" stroke="#8ec1f2" stroke-width="2"/></svg><span class="brand-name">← QLD Civil Hub</span></a></p>
 
 <h1>Unit Converter</h1>
-<p class="sub">Civil engineering units — length, area, volume, flow, mass, pressure / head.</p>
+<p class="sub">Civil engineering units — length, area, volume, flow, mass, pressure / head, angle.</p>
 
 <h2>Inputs</h2>
 <table>
@@ -92,7 +92,7 @@
 </div>
 
 <div class="note">
-  Handy exact factors: 1 ha = 10,000 m² &nbsp;·&nbsp; 1 ML = 1,000 m³ = 1,000,000 L &nbsp;·&nbsp; 1 ML/day ≈ 11.574 L/s &nbsp;·&nbsp; 1 m head = 9.80665 kPa &nbsp;·&nbsp; 1 bar = 100 kPa. For reference and checking only — verify with a qualified engineer.
+  Handy exact factors: 1 ha = 10,000 m² &nbsp;·&nbsp; 1 ML = 1,000 m³ = 1,000,000 L &nbsp;·&nbsp; 1 ML/day ≈ 11.574 L/s &nbsp;·&nbsp; 1 m head = 9.80665 kPa &nbsp;·&nbsp; 1 bar = 100 kPa &nbsp;·&nbsp; 1° = 60′ = 3600″ &nbsp;·&nbsp; 1 rad = 180/π ≈ 57.2958°. For reference and checking only — verify with a qualified engineer.
   <br /><br />
   <span class="hint">References: 1 m head of water = 9.80665 kPa (standard gravity g&#8320; = 9.80665 m/s², ISO 80000); 1 international acre = 4,046.856&#8201;422&#8201;4 m²; 1 psi = 6.894757 kPa; 1 ML/day = 1,000 m³ / 86,400 s.</span>
 </div>
@@ -134,6 +134,11 @@
       { k: 'm head', f: 9.80665 },          // standard gravity, water
       { k: 'bar',    f: 100 },
       { k: 'psi',    f: 6.894757293168361 } // 1 psi in kPa
+    ]},
+    angle: { label: 'Angle', def: ['dms', 'deg'], units: [
+      { k: 'dms', label: 'DMS (d°m′s″)', f: 1, dms: true }, // degrees written as d°m's"
+      { k: 'deg', label: '° (decimal degrees)', f: 1 },
+      { k: 'rad', label: 'rad', f: 180 / Math.PI }
     ]}
   };
 
@@ -196,6 +201,66 @@
     }
     return trimZeros(expandExp(r.toPrecision(12)));
   }
+
+  // "90°30'15"", "90d30'15'", "90 30 15", "30'" or "45.5" → decimal degrees.
+  // Markers are optional; only the last component may carry decimals.
+  function parseDMS(str) {
+    if (typeof str !== 'string') return NaN;
+    var s = str.replace(/^\s+|\s+$/g, '');
+    var neg = false;
+    if (s.charAt(0) === '-' || s.charAt(0) === '+') {
+      neg = s.charAt(0) === '-';
+      s = s.substring(1).replace(/^\s+/, '');
+    }
+    s = s.replace(/[′’‘`]/g, "'").replace(/[″”“]/g, '"').replace(/''/g, '"').replace(/[°ºdD˚]/g, '°');
+    var re = /(\d+(?:\.\d*)?|\.\d+)\s*([°'"]?)\s*/g;
+    var vals = [null, null, null], last = -1, pos = 0, frac = false, m;
+    while ((m = re.exec(s)) !== null) {
+      if (m.index !== pos) return NaN;
+      pos = re.lastIndex;
+      // a second ' after the minutes is read as seconds (e.g. 90d0'0')
+      var slot = m[2] === '°' ? 0 : m[2] === '"' ? 2 : m[2] === "'" ? (last >= 1 ? 2 : 1) : last + 1;
+      if (slot <= last || slot > 2 || frac) return NaN;
+      if (m[1].indexOf('.') !== -1) frac = true;
+      vals[slot] = parseFloat(m[1]);
+      last = slot;
+    }
+    if (last === -1 || pos !== s.length) return NaN;
+    var mins = vals[1] || 0, secs = vals[2] || 0;
+    if (mins >= 60 || secs >= 60) return NaN;
+    var deg = (vals[0] || 0) + mins / 60 + secs / 3600;
+    return neg ? -deg : deg;
+  }
+
+  // Decimal degrees → d°m's" to 0.01″. Integer centiseconds so 59.999″ carries to the next minute.
+  function formatDMS(deg) {
+    if (typeof deg !== 'number' || isNaN(deg) || !isFinite(deg)) return null;
+    var cs = Math.round(Math.abs(deg) * 360000);
+    var d = Math.floor(cs / 360000);
+    var rem = cs - d * 360000;
+    var mm = Math.floor(rem / 6000);
+    var sec = trimZeros(((rem - mm * 6000) / 100).toFixed(2));
+    return (deg < 0 && cs > 0 ? '-' : '') + d + '°' + mm + "'" + sec + '"';
+  }
+
+  function unitSuffix(u) { return u.k === 'deg' ? '°' : ' ' + u.k; }
+
+  // Raw input text → number in the from-unit (DMS text → decimal degrees)
+  function parseInput(str, catKey, fromKey) {
+    var u = getUnit(catKey, fromKey);
+    if (!u) return NaN;
+    if (u.dms) return parseDMS(str);
+    if (typeof str !== 'string' || /^\s*$/.test(str)) return NaN;
+    return Number(str);
+  }
+
+  function formatOutput(n, catKey, unitKey) {
+    var u = getUnit(catKey, unitKey);
+    if (!u) return null;
+    if (u.dms) return formatDMS(n);
+    var s = fmtResult(n);
+    return s === null ? null : s + unitSuffix(u);
+  }
   // [CORE-END]
 
   // ── DOM wiring ─────────────────────────────────────────────────────
@@ -218,40 +283,67 @@
     CATS[catKey].units.forEach(u => {
       const opt = document.createElement('option');
       opt.value = u.k;
-      opt.textContent = u.k;
+      opt.textContent = u.label || u.k;
       sel.appendChild(opt);
     });
     sel.value = selectedKey;
+  }
+
+  // DMS needs a text box (90°30'15" isn't a number); every other unit keeps the numeric input
+  function updateInputMode() {
+    const u = getUnit(catSel.value, fromSel.value);
+    const dms = !!(u && u.dms);
+    valI.type = dms ? 'text' : 'number';
+    valI.placeholder = dms ? 'e.g. 90°30\'15"' : catSel.value === 'angle' ? 'e.g. 90.5' : 'e.g. 2500';
   }
 
   function onCatChange() {
     const cat = CATS[catSel.value];
     buildUnitOptions(fromSel, catSel.value, cat.def[0]);
     buildUnitOptions(toSel,   catSel.value, cat.def[1]);
+    updateInputMode();
     recalc();
   }
 
   function recalc() {
-    const factor = convertValue(1, catSel.value, fromSel.value, toSel.value);
-    factTd.textContent = isNaN(factor) ? '—'
-      : '1 ' + fromSel.value + ' = ' + fmtResult(factor) + ' ' + toSel.value;
+    const cat = catSel.value;
+    const fromU = getUnit(cat, fromSel.value);
+    const toU   = getUnit(cat, toSel.value);
 
-    const v = parseFloat(valI.value);
-    const res = convertValue(v, catSel.value, fromSel.value, toSel.value);
-    const s = fmtResult(res);
-    outTd.textContent = s === null ? '—'
-      : valI.value + ' ' + fromSel.value + ' = ' + s + ' ' + toSel.value;
+    if (fromU.dms || toU.dms) {
+      factTd.textContent = '1° = 60\' = 3600" — DMS writes an angle as degrees, minutes and seconds';
+    } else {
+      const f = formatOutput(convertValue(1, cat, fromSel.value, toSel.value), cat, toSel.value);
+      factTd.textContent = f === null ? '—' : '1' + unitSuffix(fromU) + ' = ' + f;
+    }
+
+    const v = parseInput(valI.value, cat, fromSel.value);
+    const res = formatOutput(convertValue(v, cat, fromSel.value, toSel.value), cat, toSel.value);
+    const shown = fromU.dms ? formatDMS(v) : valI.value + unitSuffix(fromU);
+    outTd.textContent = res === null ? '—' : shown + ' = ' + res;
   }
 
   document.getElementById('swap').addEventListener('click', () => {
+    const cat = catSel.value;
+    const fromU = getUnit(cat, fromSel.value);
+    const toU   = getUnit(cat, toSel.value);
+    // DMS text and plain numbers can't share the input box, so with DMS involved
+    // the swap carries the current result across and runs the conversion backwards.
+    let carried = null;
+    if (fromU.dms || toU.dms) {
+      const res = convertValue(parseInput(valI.value, cat, fromSel.value), cat, fromSel.value, toSel.value);
+      carried = toU.dms ? formatDMS(res) : fmtResult(res);
+    }
     const f = fromSel.value;
     fromSel.value = toSel.value;
     toSel.value = f;
+    updateInputMode();
+    if (carried !== null) valI.value = carried;
     recalc();
   });
 
   catSel.addEventListener('change', onCatChange);
-  fromSel.addEventListener('change', recalc);
+  fromSel.addEventListener('change', () => { updateInputMode(); recalc(); });
   toSel.addEventListener('change', recalc);
   valI.addEventListener('input', recalc);
 
@@ -309,6 +401,7 @@
     onCatChange();                       // builds unit selects (defaults)
     if (p.has('from') && getUnit(catSel.value, p.get('from'))) fromSel.value = p.get('from');
     if (p.has('to')   && getUnit(catSel.value, p.get('to')))   toSel.value   = p.get('to');
+    updateInputMode();                   // switch to the text box before restoring a DMS value
     if (p.has('val')) valI.value = p.get('val');
     recalc();
   })();
