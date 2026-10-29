@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://msi13277-sudo.github.io/civilhub/sitemap.xml
+Sitemap: https://qldcivilhub.pages.dev/sitemap.xml
